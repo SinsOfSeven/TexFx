@@ -15,6 +15,9 @@ Texture2D<float4> t0 : register(t0);
 Texture2D<float4> t26 : register(t26);
 Texture2D<float4> t69 : register(t69);
 
+SamplerState s13_s : register(s12);
+
+SamplerState s12_s : register(s13);
 
 SamplerState s5_s : register(s5);
 
@@ -35,7 +38,7 @@ cbuffer cb2 : register(b2)
 
 cbuffer cb1 : register(b1)
 {
-  float4 cb1[9];
+  float4 cb1[9];//unity constants???
 }
 
 cbuffer cb0 : register(b0)
@@ -70,34 +73,66 @@ void main(
   float4 r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,
 
   
-  r14,r15;
-
+  r14,r15,r16,r17;
 
   uint4 bitmask, uiDest;
   float4 fDest;
+  o1.xyzw = float4(0,0,0,0);
+  o2.xyzw = float4(0,0,0,0);
+  r16.xyzw = IniParams.Load(0).xyzw;
+  r0.xy = cmp(float2(0,0) != cb0[64].wx);
+  r0.z = -0.00999999978 + v1.w;
+  r0.z = cmp(r0.z < 0);
+  r0.x = r0.x ? r0.z : 0;
+  if (r0.x != 0) discard;
+  if (r0.y != 0) {
+    r0.x = cmp(cb0[64].y < 0.949999988);
+    if (r0.x != 0) {
+      r0.xy = v4.yx / v4.ww;
+      r0.xy = cb1[7].yx * r0.xy;
+      r0.xy = float2(0.25,0.25) * r0.xy;
+      r0.zw = cmp(r0.xy >= -r0.xy);
+      r0.xy = frac(abs(r0.xy));
+      r0.xy = r0.zw ? r0.xy : -r0.xy;
+      r0.xy = float2(4,4) * r0.xy;
+      r0.xy = (uint2)r0.xy;
+      r1.x = dot(cb0[8].xyzw, icb[r0.y+0].xyzw);
+      r1.y = dot(cb0[9].xyzw, icb[r0.y+0].xyzw);
+      r1.z = dot(cb0[10].xyzw, icb[r0.y+0].xyzw);
+      r1.w = dot(cb0[11].xyzw, icb[r0.y+0].xyzw);
+      r0.x = dot(r1.xyzw, icb[r0.x+0].xyzw);
+      r0.x = cb0[64].y * 17 + -r0.x;
+      r0.x = -0.00999999978 + r0.x;
+      r0.x = cmp(r0.x < 0);
+      if (r0.x != 0) discard;
+    }
+  }
+  o1.xyz = r0.xyz;
 
   //r2.xyzw = float4(0,10,0,0);
   r0.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
-  r1.xyzw = t69.Sample(s0_s, v2.xy).xyzw;
+  r1.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
   r1.w = 1 - r1.w > 0 ? 1 - r1.w : 0.0;
   r0.w = r1.w;
   //r0.xyzw = r0.xyzw * float4(1,1,1,0);
   o1.xyzw = o1.xyzw * float4(0.1,0.1,0.1,0.5) + float4(0.5,0.5,0.5,0.5);
-  r15.w = t69.Sample(s0_s, v2.xy).w;
+  r15.w = t69.Sample(s0_s, v2.xy, float2(0.5,0)).w;
   if(r15.w < 0.005) discard;
   //r14.xyzw = t26.SampleBias(s0_s, float2(v0.x/IniParams[0].x, v0.y/IniParams[0].y), r2.y).xyzw;
-  r14.xyzw = t26.Sample(s0_s, float2(v0.x/IniParams[0].x, v0.y/IniParams[0].y)).xyzw;
+  r14.xyzw = t26.Sample(s13_s, float2(v0.x/r16.x, v0.y/r16.y)).xyzw;
   if (r14.w > 0){
     if (r15.w > 0){
-      r15.w = r15.w * -1 + 0.995;
-      o2.xyzw = float4(lerp(r0.x, r14.x, r15.w),lerp(r0.y, r14.y, r15.w),lerp(r0.z, r14.z, r15.w),r0.w);
+      //r15.w = r15.w * -1 + 0.995;
+      o2.xyzw = float4(lerp(r0.x, r14.x, r15.w),lerp(r0.y, r14.y, r15.w),lerp(r0.z, r14.z, r15.w),r15.w);
     }
   }
-  o0.xyzw = float4(0.5,0.5,0.5,0.5);
+  r17.xyzw = IniParams.Load(69).xyzw;
+  o0.xyz = v3.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
+  o0.w = 0.333000;
   //o2.xyzw = o2.xyzw * float4(0.5,0.5,0.5,1.0) + float4(0.5,0.5,0.5,0.0);
   //o2.w = r1.w;
   o1.xyzw = float4(1,1,1,0);
-  o1.w = r1.w != 0 ? r1.w : 1;
+  o1.w = cos(r16.x);
   o3.x = 0;
   o4.x = 0;
   o5.x = 0;
