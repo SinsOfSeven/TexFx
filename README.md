@@ -1,6 +1,11 @@
 # TexFx
 > GIMI Texture Extention Shaders
 
+
+NOTE TO SELF:
+Try adding bloom lighting and shadows render targets to the pixel shader for lerp
+
+
 ### Usage Notes
 ```ini
 ; Allows for universal Discard by transparency

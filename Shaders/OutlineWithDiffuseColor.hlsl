@@ -11,13 +11,14 @@ Texture2D<float4> t1 : register(t1);
 
 Texture2D<float4> t0 : register(t0);
 
-
-Texture2D<float4> t26 : register(t26);
+Texture2D<float4> t74 : register(t74);
+Texture2D<float4> t73 : register(t73);
+Texture2D<float4> t72 : register(t72);
+Texture2D<float4> t71 : register(t71);
 Texture2D<float4> t69 : register(t69);
 
-SamplerState s13_s : register(s12);
-
-SamplerState s12_s : register(s13);
+SamplerState s15_s : register(s15);
+SamplerState s14_s : register(s14);
 
 SamplerState s5_s : register(s5);
 
@@ -73,13 +74,12 @@ void main(
   float4 r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,
 
   
-  r14,r15,r16,r17;
+  r14,r15,r16,r17,r18,r19;
 
   uint4 bitmask, uiDest;
   float4 fDest;
-  o1.xyzw = float4(0,0,0,0);
-  o2.xyzw = float4(0,0,0,0);
-  r16.xyzw = IniParams.Load(0).xyzw;
+
+  r14.xyzw = IniParams.Load(0).xyzw;
   r0.xy = cmp(float2(0,0) != cb0[64].wx);
   r0.z = -0.00999999978 + v1.w;
   r0.z = cmp(r0.z < 0);
@@ -108,32 +108,33 @@ void main(
     }
   }
   o1.xyz = r0.xyz;
-
-  //r2.xyzw = float4(0,10,0,0);
+  //r19.xyzw = IniParams.Load(69).xyzw;
   r0.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
-  r1.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
-  r1.w = 1 - r1.w > 0 ? 1 - r1.w : 0.0;
-  r0.w = r1.w;
+  r15.xyzw = t69.Sample(s14_s, v2.xy).xyzw;
+  if(r15.w < 0.004) discard;
+  r15.w = cmp(r15.w < 0.004);
+  //r0.w = r1.w;
+  
   //r0.xyzw = r0.xyzw * float4(1,1,1,0);
-  o1.xyzw = o1.xyzw * float4(0.1,0.1,0.1,0.5) + float4(0.5,0.5,0.5,0.5);
-  r15.w = t69.Sample(s0_s, v2.xy, float2(0.5,0)).w;
-  if(r15.w < 0.005) discard;
-  //r14.xyzw = t26.SampleBias(s0_s, float2(v0.x/IniParams[0].x, v0.y/IniParams[0].y), r2.y).xyzw;
-  r14.xyzw = t26.Sample(s13_s, float2(v0.x/r16.x, v0.y/r16.y)).xyzw;
-  if (r14.w > 0){
-    if (r15.w > 0){
-      //r15.w = r15.w * -1 + 0.995;
-      o2.xyzw = float4(lerp(r0.x, r14.x, r15.w),lerp(r0.y, r14.y, r15.w),lerp(r0.z, r14.z, r15.w),r15.w);
-    }
-  }
-  r17.xyzw = IniParams.Load(69).xyzw;
+  //o1.xyzw = r1.xyzw * float4(0.5,0.5,0.5,0) + float4(0.5,0.5,0.5,0);
+  r16.xyzw = t71.Sample(s15_s, float2(v0.x/r14.x, v0.y/r14.y)).xyzw;
+  //r17.xyzw = t72.Sample(s15_s, float2(v0.x/r14.x*0.99, v0.y/r14.y*0.99)).xyzw;
+  //r18.xyzw = t73.Sample(s15_s, float2(v0.x/r14.x*0.99, v0.y/r14.y*0.99)).xyzw;
+
+  o1 = r15.xyzw;
+  o1.w = 1 - o1.w;
+  o2 = r16.xyzx;
+  o2.w = 1 - o2.w;
+  //if (r15.w > 0){
+  //o1.xyzw = float4(lerp(r0.x, r17.x, 0.5),lerp(r0.y, r17.y, 0.5),lerp(r0.z, r16.z, 0.5),1);
+  //o2.xyzw = float4(lerp(r0.x, r18.x, 0.5),lerp(r0.y, r18.y, 0.5),lerp(r0.z, r18.z, 0.5),1);
+  //o1.w *= r19.x;
   o0.xyz = v3.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
-  o0.w = 0.333000;
-  //o2.xyzw = o2.xyzw * float4(0.5,0.5,0.5,1.0) + float4(0.5,0.5,0.5,0.0);
+  o0.w = 0.0;
+  //o2.xyzw = o2.xyzw * float4(0.5,0.5,0.5,0.5) + float4(0.5,0.5,0.5,0.5);
   //o2.w = r1.w;
-  o1.xyzw = float4(1,1,1,0);
-  o1.w = cos(r16.x);
-  o3.x = 0;
+  //o2.w *= 0.5;
+  o3.x = 0.5;
   o4.x = 0;
   o5.x = 0;
   return;
