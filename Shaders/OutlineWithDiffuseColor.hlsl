@@ -1,4 +1,6 @@
 // ---- Created with 3Dmigoto v1.3.16 on Fri Oct 13 18:44:30 2023
+Texture2D<float4> t6 : register(t6);
+
 Texture2D<float4> t5 : register(t5);
 
 Texture2D<float4> t4 : register(t4);
