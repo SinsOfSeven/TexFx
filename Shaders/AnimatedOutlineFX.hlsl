@@ -74,7 +74,7 @@ void main(
                               { 0, 0, 1.000000, 0},
                               { 0, 0, 0, 1.000000} };
   float4 
-  ren1,ren2,ren3,ren4,
+  ren1,ren2,ren3,
   ini0,ini69,
   sample0,
   mask0,
@@ -98,32 +98,30 @@ void main(
   //r0.xyzw = r0.xyzw * float4(1,1,1,0);
   //o1.xyzw = r1.xyzw * float4(0.5,0.5,0.5,0) + float4(0.5,0.5,0.5,0);
   //Get Shadow Buffer
-  ren1.xyzw = t71.Sample(s15_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
-  ren2.xyzw = t72.Sample(s15_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
-  ren3.xyzw = t73.Sample(s15_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
-  ren4.xyzw = t74.Sample(s15_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
+  ren1.xyzw = t71.Sample(s13_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
+  ren2.xyzw = t72.Sample(s14_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
+  ren3.xyzw = t74.Sample(s15_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
 
-  //t74 r only
-  ren4.w = ren4.x;
-
-  sample0 = ren1 + ren2 + ren3;
+  sample0.xyz = ren1.xyz + (ren2.xyz * 0.5);
 
 
   o1.xyz = float3(
-    lerp(diffuse0.x, ren1.x, ren4.w),
-    lerp(diffuse0.y, ren1.y, ren4.w),
-    lerp(diffuse0.z, ren1.z, ren4.w)
+    lerp(diffuse0.x, sample0.x, ren3.x),
+    lerp(diffuse0.y, sample0.y, ren3.y),
+    lerp(diffuse0.z, sample0.z, ren3.z)
   );
   o2.xyz = float3(
-    lerp(sample0.x, ren4.x, mask0.w),
-    lerp(sample0.y, ren4.w, mask0.w),
-    lerp(sample0.z, ren4.w, mask0.w)
+    lerp(sample0.x, ren3.x, mask0.w),
+    lerp(sample0.y, ren3.y, mask0.w),
+    lerp(sample0.z, ren3.z, mask0.w)
   );
   //o1.w *= ren1.x;
-  o1.w = 0.5;
+  //o1.w = 1.0;
+  o2.w = 1.0;
   
-  o0.xyz = v3.xyz;
+  o0.xyz = v3.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
   o0.w = 0.0;
+  //o1.xyz = ren1.xyz;
   //o2.xyzw = o2.xyzw * float4(0.5,0.5,0.5,0.5) + float4(0.5,0.5,0.5,0.5);
   //o2.w = r1.w;
   //o2.w *= 0.5;
@@ -133,11 +131,8 @@ void main(
   o5.x = 0.0;
   //o1.xyz *= mask0.xyz;
   //o1.w = 1 - o1.w;
-  //o2.xy = o1.xy == float2(0,0) ? float2(0.4,0.6) : o1.xy;
+  o2.xy = o1.xy == float2(0,0) ? float2(0.4,0.6) : o1.xy;
   //o2.xyzw = diffuse0.xyzw;
   //o2.w = 1 - o2.w;
-
-  o0.xyzw = float4(0.0,0.0,0.0,0.0);
-  //o2 = o1;
   return;
 }
