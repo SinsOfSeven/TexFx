@@ -45,12 +45,15 @@ cbuffer cb0 : register(b0)
   float4 cb0[90];
 }
 
+#define res IniParams[0].xy
+#define time IniParams[0].w
+#define modesty IniParams[69].x
+
 
 // 3Dmigoto declarations
 #define cmp -
 Texture1D<float4> IniParams : register(t120);
 Texture2D<float4> StereoParams : register(t125);
-
 
 void main(
   float4 v0 : SV_POSITION0,
@@ -72,7 +75,6 @@ void main(
                               { 0, 0, 1.000000, 0},
                               { 0, 0, 0, 1.000000} };
   float4 r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,
-  ini0,ini69,
   ren1,ren2,ren3,ren4,
   mask,diffuse,lightmap,normalmap;
   uint4 bitmask, uiDest;
@@ -81,16 +83,10 @@ void main(
   if(mask.w == 0.0) discard;
   if(mask.w == 1.0) discard;
   //mask.w = 1 - mask.w;
-  
-  
-  
-  ini0.xyzw = IniParams.Load(0).xyzw;
-  ini69.xyzw = IniParams.Load(69).xyzw;
-
-  ren1.xyzw = t71.Sample(s15_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
-  // ren2.xyzw = t72.Sample(s15_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
-  // ren3.xyzw = t73.Sample(s15_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
-  // ren4.xyzw = t74.Sample(s15_s, float2(v0.x/ini0.x, v0.y/ini0.y)).xyzw;
+  ren1.xyzw = t71.Sample(s15_s, float2(v0.x/res.x, v0.y/res.y)).xyzw;
+  // ren2.xyzw = t72.Sample(s15_s, float2(v0.x/res.x, v0.y/res.y)).xyzw;
+  // ren3.xyzw = t73.Sample(s15_s, float2(v0.x/res.x, v0.y/res.y)).xyzw;
+  // ren4.xyzw = t74.Sample(s15_s, float2(v0.x/res.x, v0.y/res.y)).xyzw;
   // normalmap.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
   diffuse.xyzw = t1.Sample(s1_s, v2.xy).xyzw;
   // lightmap.xyzw = t2.Sample(s2_s, v2.xy).xyzw;
@@ -101,7 +97,6 @@ void main(
   r0.x = r0.x ? r0.z : 0;
   if (r0.x != 0) discard;
   if (r0.y != 0) {
-    r0.x = cmp(cb0[64].y < 0.949999988);
     if (r0.x != 0) {
       r0.xy = v4.yx / v4.ww;
       r0.xy = cb1[7].yx * r0.xy;
@@ -119,7 +114,9 @@ void main(
       r0.x = cb0[64].y * 17 + -r0.x;
       r0.x = -0.00999999978 + r0.x;
       r0.x = cmp(r0.x < 0);
-      if (r0.x != 0) discard;
+      if (modesty.x != 0){
+        if (r0.x != 0) discard;
+      } 
     }
   }
 
@@ -145,7 +142,7 @@ void main(
   r3.x = -cb0[26].y + r2.w;
   r3.x = cmp(r3.x < 0);
   r3.x = r3.y ? r3.x : 0;
-  if (r3.x != 0) discard;
+  //if (r3.x != 0) discard;
   r4.xyzw = t1.SampleBias(s1_s, v2.xy, r0.x).xyzw;
   r3.xy = cmp(float2(0,0) != cb0[33].xy);
   r0.x = cmp(0 != cb0[48].x);
@@ -382,17 +379,20 @@ void main(
   o3.x = 0.0156862754;
   o4.x = r0.w;
   o5.x = 0; 
-
+  mask.w = saturate(sqrt(mask.w));
   //^ Move this stuff to an appropriate place above I hope
+  ren1.x  ? ren1.x : 1.0;
+  //ren1.xyz = ren1.xyz * 0.95+0.05;
   o2.xyz = float3(
     lerp(diffuse.x, ren1.x, mask.w),
     lerp(diffuse.y, ren1.y, mask.w),
     lerp(diffuse.z, ren1.z, mask.w)
   );
-  o1.xyzw = float4(0.1,0.2,0.5,1.0);
-  // o2.xyzw = float4(0.5,1.0,1.0,0.5);
+  
+  //o1.xyzw = float4(0.1,0.2,0.5,1.0);
+  //o2.xyzw = float4(0.5,1.0,1.0,0.5);
   //o3.x = 0.0;
-  o4.x = 0.1;
+  //o4.x = 0.1;
   return;
 }
 
