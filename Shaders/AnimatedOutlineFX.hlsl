@@ -47,7 +47,7 @@ cbuffer cb2 : register(b2)
 
 cbuffer cb1 : register(b1)
 {
-  float4 cb1[9];//unity constants???
+  float4 cb1[10];
 }
 
 cbuffer cb0 : register(b0)
@@ -55,7 +55,7 @@ cbuffer cb0 : register(b0)
   float4 cb0[90];
 }
 
-//Resource Structured Buffer from Ini to control shader options.
+//cb1[7]ource Structured Buffer from Ini to control shader options.
 struct SwitchBuf {
     //Needs to describe the texels, aka ratio. 
     //Describe the Texels with texture walk, the direction of the walk etc.
@@ -68,8 +68,6 @@ struct SwitchBuf {
 StructuredBuffer<SwitchBuf> SwitchBufs : register(t68);
 
 #define swtch SwitchBufs[0]
-#define res IniParams[0].xy
-#define time IniParams[0].w
 #define modesty IniParams[69].x
 // 3Dmigoto declarations
 #define cmp -
@@ -98,14 +96,41 @@ void main(
                               { 0, 0, 0, 1.000000} };
   float4 r0,r1,r2,r3,r4,r5,r6,
   ren1,ren2,ren3,ren4,
+  region,
   mask,diffuse,lightmap,normalmap;
-  mask.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
+  //calc texcoord offset
+  float2 txo, tmo, velocity,size;
+  float cycle = 20;
+  size = float2(2,2);
+  region = float4(2,2,2,2);
+  velocity = float2(0.1,0);
+  txo.xy = v2.xy;
+  //mask.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
+  //if(mask.w <= 0.005) discard;
+  //if(mask.w >= 0.995) discard;
+  //temp define sizes for testing
+  if (true){
+    //apply offset
+    float2 tmo = float2(
+      velocity.x * (cb1[0].x%cycle) / (region.z/size.x - (region.x-1)/size.x),
+      velocity.y * frac(cb1[0].x)
+    );
+    txo.x = txo.x + tmo.x <= region.z ?
+      txo.x + tmo.x:
+      txo.x - tmo.x;
+    txo.y = txo.y + tmo.y <= region.w ?
+      txo.y + tmo.y:
+      txo.y - tmo.y;
+  }
+
+  mask.xyzw = t69.Sample(s12_s, txo.xy).xyzw;
   if(mask.w <= 0.005) discard;
   if(mask.w >= 0.995) discard;
-  ren1.xyzw = t71.Sample(s15_s, float2(v0.x/res.x, v0.y/res.y)).xyzw;
-  ren2.xyzw = t72.Sample(s15_s, float2(v0.x/res.x, v0.y/res.y)).xyzw;
-  // ren3.xyzw = t73.Sample(s15_s, float2(v0.x/res.x, v0.y/res.y)).xyzw;
-  // ren4.xyzw = t74.Sample(s15_s, float2(v0.x/res.x, v0.y/res.y)).xyzw;
+
+  ren1.xyzw = t71.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
+  ren2.xyzw = t72.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
+  // ren3.xyzw = t73.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
+  // ren4.xyzw = t74.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // normalmap.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
   diffuse.xyzw = t1.Sample(s1_s, v2.xy).xyzw;
   // lightmap.xyzw = t2.Sample(s2_s, v2.xy).xyzw;
