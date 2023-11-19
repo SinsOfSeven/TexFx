@@ -1,14 +1,9 @@
 # TexFx
 > GIMI Texture Extention Shaders
 
-
-NOTE TO SELF:
-Try adding bloom lighting and shadows render targets to the pixel shader for lerp
-
-
 ### Usage Notes
 ```ini
-; Allows for universal Discard by transparency
+; Better transparency and other Texture controlled effects
 ; Anime Game Modding Group discord server (https://discord.gg/agmg)
 ; Blame sinsofseven for this attrocity
 ; Not ready for use in production.
@@ -21,10 +16,10 @@ ib = ResourceLaylaHeadIB
 ps-t0 = ResourceLaylaHeadDiffuse
 ps-t1 = ResourceLaylaHeadLightMap
 ps-t69 = ResourceTransparencyMap
-run = CommandList\addon\TexFx\ActivateDiscard.0
+run = CommandList\TexFx\ActivateDiscard.0
 ;
-;	\ActivateDiscard.0
-;	\ActivateDiscard.1
+;	\ActivateDiscard.0 (2.9-)
+;	\ActivateDiscard.1 (3.0+)
 ```
 
 ### Regex Notes

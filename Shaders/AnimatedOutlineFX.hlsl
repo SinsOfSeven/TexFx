@@ -83,12 +83,14 @@ void main(
   float4 v4 : TEXCOORD2,
   float4 v5 : TEXCOORD3,
   float2 v6 : TEXCOORD4,
+  uint v7 : SV_IsFrontFace0,
   out float4 o0 : SV_Target0,
   out float4 o1 : SV_Target1,
   out float4 o2 : SV_Target2,
   out float o3 : SV_Target3,
   out float o4 : SV_Target4,
-  out float o5 : SV_Target5
+  out float o5 : SV_Target5//,
+  //out float oDepth: SV_Depth
 ){
   const float4 icb[] = { { 1.000000, 0, 0, 0},
                               { 0, 1.000000, 0, 0},
@@ -105,14 +107,12 @@ void main(
   region = float4(2,2,2,2);
   velocity = float2(0.1,0);
   txo.xy = v2.xy;
-  //mask.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
-  //if(mask.w <= 0.005) discard;
-  //if(mask.w >= 0.995) discard;
+
   //temp define sizes for testing
-  if (true){
+  if (false){
     //apply offset
     float2 tmo = float2(
-      velocity.x * (cb1[0].x%cycle) / (region.z/size.x - (region.x-1)/size.x),
+      velocity.x * (cb1[0].w%cycle) / (region.z/size.x - (region.x-1)/size.x),
       velocity.y * frac(cb1[0].x)
     );
     txo.x = txo.x + tmo.x <= region.z ?
@@ -124,8 +124,9 @@ void main(
   }
 
   mask.xyzw = t69.Sample(s12_s, txo.xy).xyzw;
-  if(mask.w <= 0.005) discard;
-  if(mask.w >= 0.995) discard;
+  if(mask.x <= 0.005) discard;
+  if(mask.x >= 0.995) discard;
+  mask.x = mask.x;
 
   ren1.xyzw = t71.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   ren2.xyzw = t72.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
@@ -166,13 +167,16 @@ void main(
   //
 
   r2.xyz = float3(
-    lerp(diffuse.x, ren1.x, mask.w),
-    lerp(diffuse.y, ren1.y, mask.w),
-    lerp(diffuse.z, ren1.z, mask.w)
+    lerp(diffuse.x, ren1.x, mask.x),
+    lerp(diffuse.y, ren1.y, mask.x),
+    lerp(diffuse.z, ren1.z, mask.x)
   );
+  //r2 = diffuse;
+  r2.w = 0.0;
 
   o0.xyz = v3.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
   o0.w = r5.x ? 0.333000 : 0;
+  o1 = float4(0,0,0,0);
   o1.xyz = r2.xyz;
   o1.w = 0.2;
   o2.xyz = r2.xyz;
@@ -180,6 +184,7 @@ void main(
   o3.x = 0.0;
   o4.x = 0.0;
   o5.x = 0.0;
+  //oDepth = 1;
   return;
 }
 #endif
