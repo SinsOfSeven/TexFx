@@ -184,7 +184,7 @@ void main(
   o3.x = 0.0;
   o4.x = 0.0;
   o5.x = 0.0;
-  //oDepth = 1;
+
   return;
 }
 #endif
