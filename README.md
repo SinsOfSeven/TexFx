@@ -15,8 +15,8 @@ ib = ResourceIB
 ps-t0 = ResourceHeadDiffuse
 ps-t1 = ResourceHeadLightMap
 ps-t69 = ResourceTransparencyMap
-run = CommandList\TexFx\ActivateDiscard.0
+run = CommandList\TexFx\Transparency.0
 ;
-;	\ActivateDiscard.0 (2.9-) Part has no Normal Map
-;	\ActivateDiscard.1 (3.0+) Part has a Normal Map
+;	\Transparency.0 (2.9-) Part has no Normal Map
+;	\Transparency.1 (3.0+) Part has a Normal Map
 ```
