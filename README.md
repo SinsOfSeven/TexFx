@@ -6,7 +6,6 @@
 ; Better transparency and other Texture controlled effects
 ; Anime Game Modding Group discord server (https://discord.gg/agmg)
 ; Blame SinsOfSeven aka. TerminalAide0017 for this attrocity
-; Not ready for use in production.
 
 ; Example:
 [TextureOverrideHead]
