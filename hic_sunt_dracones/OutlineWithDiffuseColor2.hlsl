@@ -114,7 +114,7 @@ void main(
   // ren4.xyzw = t74.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   normalmap.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
   diffuse.xyzw = t1.Sample(s1_s, v2.xy).xyzw;
-  // lightmap.xyzw = t2.Sample(s2_s, v2.xy).xyzw;
+  lightmap.xyzw = t2.Sample(s2_s, v2.xy).xyzw;
 
   ren1 = ren1 + ren2;
   ren1 = clamp(ren1,0,1);
