@@ -32,6 +32,7 @@ It also greatly decreases the reload times after a reload.
 
 ### Compatability
 Compatable with most mods, may break with some shader mods.
+
 [ORFix](https://github.com/leotorrez/LeoTools/blob/main/releases/ORFix.ini)
 
 #### Incompatible
