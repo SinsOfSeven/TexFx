@@ -112,9 +112,9 @@ void main(
   ren2.xyzw = t72.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // ren3.xyzw = t73.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // ren4.xyzw = t74.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
-  // normalmap.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
-  diffuse.xyzw = t0.Sample(s1_s, v2.xy).xyzw;
-  // lightmap.xyzw = t2.Sample(s2_s, v2.xy).xyzw;
+  normalmap.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
+  diffuse.xyzw = t1.Sample(s1_s, v2.xy).xyzw;
+  lightmap.xyzw = t2.Sample(s2_s, v2.xy).xyzw;
 
   ren1 = ren1 + ren2;
   ren1 = clamp(ren1,0,1);
@@ -124,7 +124,7 @@ void main(
   r0 = float4(0,0,0,0);
   r3 = float4(0,0,0,0); r4 = float4(0,0,0,0); r5 = float4(0,0,0,0); r6 = float4(0,0,0,0);
   r0.x = -1 + cb0[64].z;
-  r4.xyzw = t0.SampleBias(s1_s, v2.xy, r0.x).xyzw;
+  r4.xyzw = t1.SampleBias(s1_s, v2.xy, r0.x).xyzw;
   r3.xy = cmp(float2(0,0) != cb0[33].xy);
   r0.x = cmp(0 != cb0[48].x);
   r5.xyzw = cmp(r4.wwww >= float4(0.800000012,0.400000006,0.200000003,0.600000024));
