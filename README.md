@@ -38,3 +38,16 @@ Compatable with most mods, may break with some shader mods.
 #### Incompatible
 Severe: SilentNightSounds [Remove Transparency Filter](https://gamebanana.com/mods/406659)
 - This will likely cause transparent parts to be drawn over the original, resulting in no transparency and a slight glow.
+
+### Extensions
+
+#### Int Opacity
+The `int_opacity` extension is zipped in `denn_die_todten_reiten_schnell`
+It requires TexFx, but can be installed anywhere. (Recommended where it is.)
+Just unzip and it will enable the following commands.
+```ini
+; X is any number from 0-255, 
+; 0.X and 1.X follow the same convention as TexFx.
+run = CommandList\int_opacity\0.X
+run = CommandList\int_opacity\1.X
+```
