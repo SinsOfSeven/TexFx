@@ -55,19 +55,6 @@ cbuffer cb0 : register(b0)
   float4 cb0[90];
 }
 
-//cb1[7]ource Structured Buffer from Ini to control shader options.
-struct SwitchBuf {
-    //Needs to describe the texels, aka ratio. 
-    //Describe the Texels with texture walk, the direction of the walk etc.
-	float version;
-  int2 ratio;
-  //walk.xy (0 = still, - = left/up, + = right/down)
-  //walk.
-  float4 walk;
-};
-StructuredBuffer<SwitchBuf> SwitchBufs : register(t68);
-
-#define swtch SwitchBufs[0]
 #define modesty IniParams[69].x
 // 3Dmigoto declarations
 #define cmp -
@@ -100,13 +87,10 @@ void main(
   ren1,ren2,ren3,ren4,
   region,
   mask,diffuse,lightmap,normalmap;
-  float2 txo, tmo, velocity,size;
-  txo.xy = v2.xy;
 
-  mask.xyzw = t69.Sample(s12_s, txo.xy).xyzw;
-  if(mask.x <= 0.005) discard;
-  if(mask.x >= 0.995) discard;
-  mask.x = mask.x;
+  mask.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
+  if(mask.x == 0.0) discard;
+  if(mask.x == 1.0) discard;
 
   ren1.xyzw = t71.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   ren2.xyzw = t72.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
