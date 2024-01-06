@@ -40,11 +40,13 @@ Severe: SilentNightSounds [Remove Transparency Filter](https://gamebanana.com/mo
 - This will likely cause transparent parts to be drawn over the original, resulting in no transparency and a slight glow.
 
 ### Extensions
+Extensions are add-on type mods that are intended to be used with TexFx Main, but will not guarantee compatibility between versions. For example, I already regret the name of the first extension, because the numbers are backwards for the name. The exensions folder `denn_die_todten_reiten_schnell` may be renamed in the near future as well.
+
+The intent is to allow anyone to make extensions for the main mod. This could include new effect shaders, new pre-made effects, or utilities. As I add features this should be a lot more appealing, but for now I have just added a very early example and the first utility mod.
 
 #### Int Opacity
 The `int_opacity` extension is zipped in `denn_die_todten_reiten_schnell`
-It requires TexFx, but can be installed anywhere. (Recommended where it is.)
-Just unzip and it will enable the following commands.
+Just unzip and it will enable the following commands. (Requires Main)
 ```ini
 ; X is any number from 0-255, 
 ; 0.X and 1.X follow the same convention as TexFx.
