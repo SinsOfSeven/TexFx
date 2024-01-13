@@ -88,6 +88,39 @@ void main(
   region,
   mask,diffuse,lightmap,normalmap;
 
+//Re-enable Modesty
+  r0.x = cmp(0 != cb0[35].y);
+  r0.y = -0.00999999978 + v1.w;
+  r0.y = cmp(r0.y < 0);
+  r0.x = r0.x ? r0.y : 0;
+  if (r0.x != 0) discard;
+  r0.x = cmp(0 != cb0[40].y);
+  if (r0.x != 0) {
+    r0.x = cmp(cb0[40].z < 0.949999988);
+    if (r0.x != 0) {
+      r0.xy = v4.yx / v4.ww;
+      r0.xy = cb1[7].yx * r0.xy;
+      r0.xy = float2(0.25,0.25) * r0.xy;
+      r0.zw = cmp(r0.xy >= -r0.xy);
+      r0.xy = frac(abs(r0.xy));
+      r0.xy = r0.zw ? r0.xy : -r0.xy;
+      r0.xy = float2(4,4) * r0.xy;
+      r0.xy = (uint2)r0.xy;
+      r1.x = dot(cb0[16].xyzw, icb[r0.y+0].xyzw);
+      r1.y = dot(cb0[17].xyzw, icb[r0.y+0].xyzw);
+      r1.z = dot(cb0[18].xyzw, icb[r0.y+0].xyzw);
+      r1.w = dot(cb0[19].xyzw, icb[r0.y+0].xyzw);
+      r0.x = dot(r1.xyzw, icb[r0.x+0].xyzw);
+      r0.x = cb0[40].z * 17 + -r0.x;
+      r0.x = -0.00999999978 + r0.x;
+      r0.x = cmp(r0.x < 0);
+      if (modesty != 0.0){
+        if (r0.x != 0) discard;
+      }
+    }
+  }
+//End Modesty
+
   mask.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
   if(mask.x == 0.0) discard;
   if(mask.x == 1.0) discard;
@@ -99,9 +132,8 @@ void main(
   diffuse.xyzw = t0.Sample(s1_s, v2.xy).xyzw;
   lightmap.xyzw = t1.Sample(s2_s, v2.xy).xyzw;
 
-  ren1 = ren1 + ren2;
+  ren1 = ren1 + ren2 * 0.25;
   ren1 = clamp(ren1,0,1);
-  
   
   //pray
   r0 = float4(0,0,0,0);
@@ -128,12 +160,15 @@ void main(
   r0.x = r3.w ? 5 : r0.x;
   r5.xyzw = cmp(r0.xxxx == float4(2,3,4,5));
   //
-
-  r2.xyz = float3(
-    lerp(diffuse.x, ren1.x, mask.x),
-    lerp(diffuse.y, ren1.y, mask.x),
-    lerp(diffuse.z, ren1.z, mask.x)
-  );
+  //if(ren1.x > 0.0 || ren1.y > 0.0 || ren1.z > 0.0){
+    r2.xyz = float3(
+      lerp(diffuse.x, ren1.x, mask.x),
+      lerp(diffuse.y, ren1.y, mask.x),
+      lerp(diffuse.z, ren1.z, mask.x)
+    );
+  //}else{
+    //r2.xyz = diffuse.xyz;
+  //}
   //r2 = diffuse;
   r2.w = 0.0;
 
