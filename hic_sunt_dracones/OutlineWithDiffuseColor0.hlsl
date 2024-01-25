@@ -14,12 +14,12 @@ Texture2D<float4> t1 : register(t1);
 Texture2D<float4> t0 : register(t0);
 
 //
-
 Texture2D<float4> t74 : register(t74);
 Texture2D<float4> t73 : register(t73);
 Texture2D<float4> t72 : register(t72);
 Texture2D<float4> t71 : register(t71);
 Texture2D<float4> t69 : register(t69);
+Texture2D<float4> t68 : register(t68);
 
 SamplerState s15_s : register(s15);
 SamplerState s14_s : register(s14);
@@ -129,8 +129,8 @@ void main(
   ren2.xyzw = t72.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // ren3.xyzw = t73.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // ren4.xyzw = t74.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
-  diffuse.xyzw = t0.Sample(s1_s, v2.xy).xyzw;
-  lightmap.xyzw = t1.Sample(s2_s, v2.xy).xyzw;
+  diffuse.xyzw = t68.Sample(s1_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
+  //lightmap.xyzw = t1.Sample(s2_s, v2.xy).xyzw;
 
   ren1 = ren1 + ren2 * 0.25;
   ren1 = clamp(ren1,0,1);
