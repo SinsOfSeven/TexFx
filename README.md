@@ -25,6 +25,9 @@ run = CommandList\TexFx\Transparency.1
 run = CommandList\global\ORFix\ORFix
 ```
 
+#### Censorship Patch
+Press `|` (pipe key) To toggle the censorship patch (Remove Transparency Filter)
+
 ### Troubleshooting
 
 #### If you're having problems with Shader Mods:

@@ -3,6 +3,7 @@ Starting in version 1.02, there will be a new global variable `$\TexFx\version`.
 ## Additions
 - Version global `$\TexFx\version` == 1.02
 - First Extention `Int Opacity`
+- Keybind `|` to toggle the Censorship patch.
 ## Fixes
 - Fix a bug where Red = 1 would cause gaps in the effect
 - Fixed overlaping outline and diffuse matches in the shader regex.
