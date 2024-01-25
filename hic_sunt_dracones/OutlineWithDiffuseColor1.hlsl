@@ -55,7 +55,7 @@ cbuffer cb0 : register(b0)
   float4 cb0[90];
 }
 
-#define modesty IniParams[69].x
+#define modesty IniParams[69].z
 // 3Dmigoto declarations
 #define cmp -
 Texture1D<float4> IniParams : register(t120);
