@@ -1,5 +1,6 @@
 # TexFx
 > GIMI Texture Extention Shaders
+[GameBanana Link](https://gamebanana.com/mods/485763)
 
 ### Usage Notes
 ```ini
@@ -25,15 +26,29 @@ run = CommandList\global\ORFix\ORFix
 ```
 
 ### Troubleshooting
+
+#### If you're having problems with Shader Mods:
 This mod enables the `[Rendering]` setting `cache_shaders` from the `Main.ini`
 This can sometimes prevent shaders from properly reloading.
 It also greatly decreases the reload times after a reload.
 
+#### If this mod crashes your game:
+Please share with me as many details as possible, like what GPU you have, and if you're using the latest GitHub or GameBanana version.
+You can leave a comment on GameBanana or make a GitHub Issue.
+
+#### If you have texture issues (wrong textures):
+Just try changing which version of the command you're using.
+> \Transparency.1 -> \Transparency.0 or the other way around.
+
+#### If you do not like the slight offset:
+Adjust the vertex color Blue and Alpha to 0
+[Link to a tutorial later]()
+
 
 ### Compatability
-Compatable with most mods, may break with some shader mods.
-
 [ORFix](https://github.com/leotorrez/LeoTools/blob/main/releases/ORFix.ini)
+
+Compatable with most mods, may break with some shader mods.
 
 #### Incompatible
 Severe: SilentNightSounds [Remove Transparency Filter](https://gamebanana.com/mods/406659)

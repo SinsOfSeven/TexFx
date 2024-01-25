@@ -138,37 +138,37 @@ void main(
   //pray
   r0 = float4(0,0,0,0);
   r3 = float4(0,0,0,0); r4 = float4(0,0,0,0); r5 = float4(0,0,0,0); r6 = float4(0,0,0,0);
-  r0.x = -1 + cb0[64].z;
-  r4.xyzw = t0.SampleBias(s1_s, v2.xy, r0.x).xyzw;
-  r3.xy = cmp(float2(0,0) != cb0[33].xy);
-  r0.x = cmp(0 != cb0[48].x);
+  r0.x = -1 + 0.5;
+  r4.xyzw = t1.SampleBias(s1_s, v2.xy, r0.x).xyzw;
+  r3.xy = float2(0,0);
+  r0.x = 0;
   r5.xyzw = cmp(r4.wwww >= float4(0.800000012,0.400000006,0.200000003,0.600000024));
   r0.x = r0.x ? r5.x : 0;
   r0.x = r0.x ? 2 : 1;
-  r3.w = cmp(0 != cb0[51].w);
+  r3.w = cmp(0 != 10);
   r3.w = r5.y ? r3.w : 0;
   r6.xyz = cmp(r4.www < float3(0.600000024,0.400000006,0.800000012));
   r3.w = r3.w ? r6.x : 0;
   r0.x = r3.w ? 3 : r0.x;
-  r3.w = cmp(0 != cb0[55].w);
+  r3.w = cmp(0 != 10);
   r3.w = r5.z ? r3.w : 0;
   r3.w = r6.y ? r3.w : 0;
   r0.x = r3.w ? 4 : r0.x;
-  r3.w = cmp(0 != cb0[59].w);
+  r3.w = cmp(0 != 10);
   r3.w = r5.w ? r3.w : 0;
   r3.w = r6.z ? r3.w : 0;
   r0.x = r3.w ? 5 : r0.x;
   r5.xyzw = cmp(r0.xxxx == float4(2,3,4,5));
   //
-  //if(ren1.x > 0.0 || ren1.y > 0.0 || ren1.z > 0.0){
+  if(ren1.x > 0.0 || ren1.y > 0.0 || ren1.z > 0.0){
     r2.xyz = float3(
       lerp(diffuse.x, ren1.x, mask.x),
       lerp(diffuse.y, ren1.y, mask.x),
       lerp(diffuse.z, ren1.z, mask.x)
     );
-  //}else{
-    //r2.xyz = diffuse.xyz;
-  //}
+  }else{
+    r2.xyz = diffuse.xyz*0.5;
+  }
   //r2 = diffuse;
   r2.w = 0.0;
 
