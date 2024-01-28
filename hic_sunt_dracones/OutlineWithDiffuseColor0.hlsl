@@ -55,7 +55,7 @@ cbuffer cb0 : register(b0)
   float4 cb0[90];
 }
 
-#define modesty IniParams[69].z
+#define uncensor IniParams[69].z
 // 3Dmigoto declarations
 #define cmp -
 Texture1D<float4> IniParams : register(t120);
@@ -114,7 +114,7 @@ void main(
       r0.x = cb0[40].z * 17 + -r0.x;
       r0.x = -0.00999999978 + r0.x;
       r0.x = cmp(r0.x < 0);
-      if (modesty != 0.0){
+      if (uncensor == 0.0){
         if (r0.x != 0) discard;
       }
     }

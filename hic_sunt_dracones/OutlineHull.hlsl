@@ -49,7 +49,7 @@ void main(
   float4 r0,r1,r2,r3,r4,r5;
   uint4 bitmask, uiDest;
   float4 fDest;
-  if(hull_hack==1)  v1.zw = float2(0.0,0.0);
+  if(hull_hack==0)  v1.zw = float2(0.5,0.0);
   r5.xyzw = float4(0.0,0.0,0.0,0.0);
   o0 = r5;
   o1 = r5;
