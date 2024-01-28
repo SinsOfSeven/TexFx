@@ -17,6 +17,8 @@ Hull hack toggle (mostly for debugging)
 Hull hack supress (for styling)
 > run = CommandList\TexFx\SupressHullHack
 ORFix patch (runs Transparency.0 instead of .1 with new ORFix only.)
+Keybind to disable texfx
+restructured some code.
 
 
 # Version 1.04 (Planned)
