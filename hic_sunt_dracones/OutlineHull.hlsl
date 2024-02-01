@@ -32,6 +32,7 @@ cbuffer cb0 : register(b0)
 Texture1D<float4> IniParams : register(t120);
 Texture2D<float4> StereoParams : register(t125);
 #define hull_hack IniParams[69].w
+#define OFFSET IniParams[169].x
 
 void main(
   float4 v0 : POSITION0,
@@ -49,7 +50,7 @@ void main(
   float4 r0,r1,r2,r3,r4,r5;
   uint4 bitmask, uiDest;
   float4 fDest;
-  if(hull_hack==0)  v1.zw = float2(0.5,0.0);
+  if(hull_hack==0)  v1.zw = float2(0.0,0.0);
   r5.xyzw = float4(0.0,0.0,0.0,0.0);
   o0 = r5;
   o1 = r5;
@@ -118,6 +119,7 @@ void main(
     r1.z = cb3[2].w;
     r1.w = cb3[3].w;
     r2.w = dot(r1.xyzw, r3.xyzw);
+    r2.y = r2.y + OFFSET;
     r0.x = cb4[9].x;
     r0.y = cb4[10].x;
     r0.z = cb4[11].x;
