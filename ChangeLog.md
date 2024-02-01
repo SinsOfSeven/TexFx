@@ -17,6 +17,7 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - Added "HullHack" feature to adjust vertex colors which mess with the transparency.
 - Added `run = CommandList\TexFx\SupHH`to Supress this feature per mod part.
 - Added More Keybindings to control TexFx, and makes them easier to customize. `DISABLED_Keybindings.ini`
+- Added `commandlist\texfx\t.0` & `commandlist\texfx\t.1`as Aliases.
 
 ## Fixes
 - ORFix (for 4.4) patch, this will fix wrong textures.
