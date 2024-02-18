@@ -1,5 +1,8 @@
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/sinsofseven)
+
 # TexFx
 > GIMI Texture Extention Shaders
+
 [GameBanana Link](https://gamebanana.com/mods/485763)
 
 ### Usage Notes
@@ -55,8 +58,9 @@ Just try changing which version of the command you're using.
 > \Transparency.1 -> \Transparency.0 or the other way around.
 
 #### Incompatible
-Severe: SilentNightSounds [Remove Transparency Filter](https://gamebanana.com/mods/406659)
-This will likely cause transparent parts to be drawn over the original, resulting in no transparency and a slight glow.
+> [!WARNING]
+> Severe: SilentNightSounds [Remove Transparency Filter](https://gamebanana.com/mods/406659)
+> This will likely cause transparent parts to be drawn over the original, resulting in no transparency and a slight glow.
 
 ### Extensions
 Extensions are add-on type mods that are intended to be used with TexFx Main, but will not guarantee compatibility between versions. For example, I already regret the name of the first extension, because the numbers are backwards for the name. The exensions folder `denn_die_todten_reiten_schnell` may be renamed in the near future as well.

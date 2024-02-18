@@ -27,7 +27,15 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - Renamed several values and functions for clarity (Modesty -> Uncensor)
 - Moved the Setting for `cache_shaders` to a seperate file `d3dx_overrides.ini`.
 
+# Version 1.035
+
+## Fixes
+- Fixed texture flickering caused by the transparency shader not being cleaned up.
+- Changed the Texture detection method from Alpha Value to Texture Size ( > 0).
+
 # Version 1.04 (Planned)
 I plan to improve the shading in the next version now that I have fixed some of the stability issues caused by overlapping shader matches.
 
-Start working on the animated emissive overlay shader.
+Start working on the animated and emissive overlay shader.
+
+Update information about the mod.
