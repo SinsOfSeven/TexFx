@@ -109,10 +109,10 @@ void main(
   txo.xy = v2.xy;
 
   //temp define sizes for testing
-  if (false){
+  if (true){
     //apply offset
     float2 tmo = float2(
-      velocity.x * (cb1[0].w%cycle) / (region.z/size.x - (region.x-1)/size.x),
+      velocity.x * frac(cb1[0].w),
       velocity.y * frac(cb1[0].x)
     );
     txo.x = txo.x + tmo.x <= region.z ?
