@@ -33,9 +33,19 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - Fixed texture flickering caused by the transparency shader not being cleaned up.
 - Changed the Texture detection method from Alpha Value to Texture Size ( > 0).
 
-# Version 1.04 (Planned)
-I plan to improve the shading in the next version now that I have fixed some of the stability issues caused by overlapping shader matches.
+# Vesion 1.04
 
-Start working on the animated and emissive overlay shader.
+## Additions
+- Added CC-BY-SA 4.0 Licence
+- Added `ComponentFriendlyBuiltinShaders.ini` (README)
+- Added the first iteration of Emissives Shading (README)
 
-Update information about the mod.
+## Adjustments
+- Adjusted Populationg IniParams
+
+## Deprecated
+- Int_Opacity is deprecated in favor of my Virtual Textures.
+
+# Version 1.05 (Planned)
+Shadow Shading and a default UV Animation that doesn't suck.
+Change HullHack to use different CustomShaders instead of passing the information to the vertex shader.

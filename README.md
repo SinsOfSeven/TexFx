@@ -6,24 +6,30 @@
 [GameBanana Link](https://gamebanana.com/mods/485763)
 
 ### Usage Notes
-```ini
-; Better transparency and other Texture controlled effects
-; Anime Game Modding Group discord server (https://discord.gg/agmg)
-; Blame SinsOfSeven for this attrocity
+TexFx textures encode Transparency (Opacity) on the RED channel, and Emissives (Glow) on the GREEN channel. Red and Green Mix.
 
+Channel | Value |Effect
+:-      |:-     |:-
+Red     | 0     | Opaque
+Red     | 1-254 | Transparent
+Red     | 255   | Discard (Skip)
+Green   | 0-255 | Shadow - Glow
+
+```ini
 ; Example:
 [TextureOverrideHead]
 hash = 1234abcd
 match_first_index = 0
 ib = ResourceIB
-ps-t0 = ResourceHeadDiffuse
-ps-t1 = ResourceHeadLightMap
-ps-t69 = ResourceTransparencyMap
-run = CommandList\TexFx\Transparency.1
+ps-t0 = ResourceHeadNormalMap
+ps-t1 = ResourceHeadDiffuse
+ps-t2 = ResourceHeadLightMap
+ps-t69 = ResourceTexFxMap
+run = CommandList\TexFx\T.1
 ;   \Transparency.0 (2.9-) Part has no Normal Map
 ;   \Transparency.1 (3.0+) Part has a Normal Map
 ;
-;   -- Version 1.03, added shorthand Aliases. --
+;   -- Version 1.04, shorthand Aliases are prefered. --
 ;   commandlist\texfx\T.0
 ;   commandlist\texfx\T.1
 ```
@@ -42,12 +48,35 @@ If you prefer the old way, you can add **one** of these commands to your mod. (A
 `run = commandlist\texfx\suphh`
 `$\texfx\hull_hack = 0`
 
+#### TexFx for Components (OutfitCompiler)
+`hic_sunt_dracones/ComponentFriendlyBuiltinShaders.ini`
+This introduces some new concepts that allow us to use TexFx in a new and exciting way, we can use it to create "Materials" or "Sub Parts" like a pair of sunglasses which which can have thier own draw passes! We can create other custom shaders and effects, but for now I've included two default ones which use normal TexFx behavior.
+
+The syntax is verbose, but it's a price we must pay for power.
+```ini
+; Use Example
+[CommandList Draw Transparent Emissive Component]
+ps-t0 = ResourceDiffuse
+ps-t1 = ResoourceLightmap
+ps-t69 = ResourceTexFxMask
+if ps == 037730.0 && $\texfx\texfx_on
+    $\TexFx\_1 = <DRAWINDEX>
+    $\TexFx\_2 = <DRAWOFFSET>
+    run = CommandList\TexFx\SetResourceReferences
+    run = CustomShader\TexFx\Component.0
+endif
+drawindexed = <DRAWINDEX>, <DRAWOFFSET>, 0
+run = CommandList\TexFx\ResetResources
+```
+
 ### Troubleshooting
 
 #### If you're having problems with Shader Mods:
-Try setting the remaining body parts like this `ps-t69 = null`. You do not need to call the commands, texfx is suppose to do this automatically, but it isn't always able to do it properly, and this can help prevent unexpected behaviors, even with unrelated mods.
+Try setting the remaining body parts like this `ps-t69 = null`. You do not need to call the commands, texfx is suppose to do this automatically, but it isn't always able to do it properly, and this can help prevent unexpected behaviors, even with unrelated mods. In 4.5 there is a known issue with some mods in the some menus which can be fixed with this.
 
 The `[Rendering]` setting `cache_shaders` from the `d3dx_overrides.ini` can sometimes prevent shaders from properly reloading. It will drop your FPS drop some when you first visit new areas after installing or updating the mod.
+
+You may also clear your ShaderFixes folder of unwanted shaders. If experienceing issues, you can rename this folder and reload to see if it replairs the issue. In which case you may investigate further.
 
 #### If this mod crashes your game:
 Please share with me as many details as possible, like what GPU you have, and if you're using the latest GitHub or GameBanana version.
@@ -67,7 +96,9 @@ Extensions are add-on type mods that are intended to be used with TexFx Main, bu
 
 The intent is to allow anyone to make extensions for the main mod. This could include new effect shaders, new pre-made effects, or utilities. As I add features this should be a lot more appealing, but for now I have just added a very early example and the first utility mod.
 
-#### Int Opacity
+#### Int Opacity (Deprecated)
+> [!INFO]
+> This Extension will be removed in favor of a different tool called [FakeLightmap](https://github.com/SinsOfSeven/SliderImpact/tree/main/FakeLightmap), a Virtual Texture mod which can be used to quickly manipulate texture values in game!
 The `int_opacity` extension is zipped in `denn_die_todten_reiten_schnell`
 Just unzip and it will enable the following commands. (Requires Main)
 ```ini
