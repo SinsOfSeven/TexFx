@@ -33,7 +33,7 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - Fixed texture flickering caused by the transparency shader not being cleaned up.
 - Changed the Texture detection method from Alpha Value to Texture Size ( > 0).
 
-# Vesion 1.04
+# Version 1.04
 
 ## Additions
 - Added CC-BY-SA 4.0 Licence
