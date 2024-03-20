@@ -186,7 +186,7 @@ void main(
   o0.w = r5.x ? 0.333000 : 0;
   o1 = float4(0,0,0,0);
   o1.xyz = r2.xyz;
-  o1.w = r3.x;
+  o1.w = r3.y;
   o2.xyz = r2.xyz;
   o2.w = 1.0;
   o3.x = 0.0;

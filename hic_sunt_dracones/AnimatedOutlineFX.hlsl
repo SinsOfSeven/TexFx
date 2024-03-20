@@ -106,24 +106,9 @@ void main(
   size = float2(2,2);
   region = float4(2,2,2,2);
   velocity = float2(0.1,0);
-  txo.xy = v2.xy;
+  tmo.xy = float2(cb1[0].x%1,cb1[0].w%1);
 
-  //temp define sizes for testing
-  if (true){
-    //apply offset
-    float2 tmo = float2(
-      velocity.x * frac(cb1[0].w),
-      velocity.y * frac(cb1[0].x)
-    );
-    txo.x = txo.x + tmo.x <= region.z ?
-      txo.x + tmo.x:
-      txo.x - tmo.x;
-    txo.y = txo.y + tmo.y <= region.w ?
-      txo.y + tmo.y:
-      txo.y - tmo.y;
-  }
-
-  mask.xyzw = t69.Sample(s12_s, txo.xy).xyzw;
+  mask.xyzw = t69.Sample(s12_s, frac(v2.xy+tmo.xy)).xyzw;
   if(mask.x <= 0.005) discard;
   if(mask.x >= 0.995) discard;
   mask.x = mask.x;
@@ -133,7 +118,7 @@ void main(
   // ren3.xyzw = t73.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // ren4.xyzw = t74.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // normalmap.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
-  diffuse.xyzw = t1.Sample(s1_s, v2.xy).xyzw;
+  diffuse.xyzw = t0.Sample(s1_s, v2.xy).xyzw;
   // lightmap.xyzw = t2.Sample(s2_s, v2.xy).xyzw;
 
   ren1 = ren1 + ren2;
