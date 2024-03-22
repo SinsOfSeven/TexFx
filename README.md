@@ -10,10 +10,11 @@ TexFx textures encode Transparency (Opacity) on the RED channel, and Emissives (
 
 Channel | Value |Effect
 :-      |:-     |:-
-Red     | 0     | Opaque
+RGB     | 0     | Ignore TexFx
 Red     | 1-254 | Transparent
 Red     | 255   | Discard (Skip)
-Green   | 0-255 | Shadow - Glow
+Green   | 1-255 | Shadow - Glow
+Blue    | 1-255 | Bloom Intencity
 
 ```ini
 ; Example:
