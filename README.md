@@ -19,7 +19,7 @@ Channel | Value |Effect
 RGB     | 0     | Ignore TexFx
 Red     | 1-254 | Transparent
 Red     | 255   | Discard (Skip)
-Green   | 1-255 | Shadow - Glow
+Green   | 1-255 | Shadow - Bright
 Blue    | 1-255 | Bloom Intencity
 
 It is recommended to set unaffected parts to `ps-t69 = null`
