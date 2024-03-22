@@ -181,7 +181,7 @@ void main(
   o2.xyz = r2.xyz;
   o2.w = 1;
   o3.x = 0.0;
-  o4.x = 0.0;
+  o4.x = mask.z;
   o5.x = 0.0;
 
   return;

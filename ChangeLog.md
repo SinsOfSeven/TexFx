@@ -52,6 +52,11 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - Fixed an issue were a rouge `.` instead of `\.` in my regex was causing crashes in some situations.
 - Fixed an issue where the keybind to disable the mod was not toggling back on.
 
+# Version 1.042
+
+## Additions
+- Blue channel of `ps-t69`now controls bloom intencity.
+
 # Version 1.05 (Planned)
 Shadow Shading and a default UV Animation that doesn't suck.
 Change HullHack to use different CustomShaders instead of passing the information to the vertex shader.
