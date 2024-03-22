@@ -6,7 +6,13 @@
 [GameBanana Link](https://gamebanana.com/mods/485763)
 
 ### Usage Notes
-TexFx textures encode Transparency (Opacity) on the RED channel, and Emissives (Glow) on the GREEN channel. Red and Green Mix.
+TexFx textures encode effects in the ps-t69 slot.
+
+Transparency (Opacity) on the RED channel
+
+Emissives (Brightness) on the GREEN channel
+
+Bloom Intensity (Glow) on the BLUE channel.
 
 Channel | Value |Effect
 :-      |:-     |:-
@@ -15,6 +21,8 @@ Red     | 1-254 | Transparent
 Red     | 255   | Discard (Skip)
 Green   | 1-255 | Shadow - Glow
 Blue    | 1-255 | Bloom Intencity
+
+It is recommended to set unaffected parts to `ps-t69 = null`
 
 ```ini
 ; Example:
