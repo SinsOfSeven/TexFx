@@ -55,9 +55,11 @@ cbuffer cb0 : register(b0)
   float4 cb0[90];
 }
 
-#define modesty IniParams[69].z
+
 // 3Dmigoto declarations
 #define cmp -
+#define modesty IniParams[69].z
+#define intensity IniParams[70].xyzw
 Texture1D<float4> IniParams : register(t120);
 Texture2D<float4> StereoParams : register(t125);
 
@@ -169,19 +171,19 @@ void main(
     );
   }else{
     r2.xyz = diffuse.xyz*0.5;
+    r2.w = 0.0;
   }
-  //r2 = diffuse;
-  r2.w = 0.0;
 
+  r3.y = mask.y > 0 ? mask.y * intensity.y : 0.2;
   o0.xyz = v3.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
   o0.w = r5.x ? 0.333000 : 0;
   o1 = float4(0,0,0,0);
   o1.xyz = r2.xyz;
-  o1.w = 0.2;
+  o1.w = r3.y;
   o2.xyz = r2.xyz;
   o2.w = 1;
   o3.x = 0.0;
-  o4.x = mask.z;
+  o4.x = mask.z * intensity.z;
   o5.x = 0.0;
 
   return;

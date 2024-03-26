@@ -55,7 +55,14 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 # Version 1.042
 
 ## Additions
-- Blue channel of `ps-t69`now controls bloom intencity.
+- Blue channel of `ps-t69`now controls bloom.
+
+# Version 1.043
+
+## Additions
+- `$\TexFx\bloom_intesity` and `$\TexFx\glow_intesity` added to make changing the values of bloom and glow easier.
+- More Aliases! (README.md)
+- CommandLists to simplify component style calls. `CommandList\TexFx\Component.0`
 
 # Version 1.05 (Planned)
 Shadow Shading and a default UV Animation that doesn't suck.

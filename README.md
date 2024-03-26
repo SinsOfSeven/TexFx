@@ -20,7 +20,9 @@ RGB     | 0     | Ignore TexFx
 Red     | 1-254 | Transparent
 Red     | 255   | Discard (Skip)
 Green   | 1-255 | Shadow - Bright
-Blue    | 1-255 | Bloom Intencity
+Blue    | 1-255 | Bloom
+
+`$\TexFx\glow_intesity` and `$\TexFx\bloom_intesity` may be used to change the intesity of Green and Blue.
 
 It is recommended to set unaffected parts to `ps-t69 = null`
 
@@ -41,6 +43,39 @@ run = CommandList\TexFx\T.1
 ;   -- Version 1.04, shorthand Aliases are prefered. --
 ;   commandlist\texfx\T.0
 ;   commandlist\texfx\T.1
+```
+
+```ini
+; Notable TexFx Words and Aliases.
+run = CommandList\TexFx\T
+run = CommandList\TexFx\T.0
+run = CommandList\TexFx\Transparency
+run = CommandList\TexFx\Transparency.0
+
+run = CommandList\TexFx\T.1
+run = CommandList\TexFx\Transparency.1
+
+run = CommandList\TexFx\C
+run = CommandList\TexFx\C.0
+run = CommandList\TexFx\Component
+run = CommandList\TexFx\Component.0
+
+run = CommandList\TexFx\C.1
+run = CommandList\TexFx\Component.1
+
+run = CommandList\TexFx\Shh
+run = CommandList\TexFx\SupHH
+run = CommandList\TexFx\SupressHullHack
+
+run = CommandList\TexFx\RR
+run = CommandList\TexFx\ResetResources
+
+$\TexFx\_1
+$\TexFx\_2
+$\TexFx\bloom_intesity
+$\TexFx\glow_intesity
+$\TexFx\texfx_on
+$\TexFx\version
 ```
 
 #### Keybindings
