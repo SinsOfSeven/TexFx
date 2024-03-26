@@ -70,12 +70,14 @@ run = CommandList\TexFx\SupressHullHack
 run = CommandList\TexFx\RR
 run = CommandList\TexFx\ResetResources
 
-$\TexFx\_1
-$\TexFx\_2
+; To multiply your Green and Blue Channels
 $\TexFx\bloom_intesity
 $\TexFx\glow_intesity
-$\TexFx\texfx_on
+; TexFx version number
 $\TexFx\version
+; Draw Indexed Carriers for Components
+$\TexFx\_1
+$\TexFx\_2
 ```
 
 #### Keybindings
@@ -99,18 +101,16 @@ This introduces some new concepts that allow us to use TexFx in a new and exciti
 The syntax is verbose, but it's a price we must pay for power.
 ```ini
 ; Use Example
-[CommandList Draw Transparent Emissive Component]
-ps-t0 = ResourceDiffuse
-ps-t1 = ResoourceLightmap
-ps-t69 = ResourceTexFxMask
-if ps == 037730.0 && $\texfx\texfx_on
+if $Hood == 1
+    ps-t0 = ResourceDiffuse
+    ps-t1 = ResoourceLightmap
+    ps-t69 = ResourceTexFxMask
+    $\texfx\glow_intensity = $VAR1
+    $\texfx\bloom_intensity = $VAR2
     $\TexFx\_1 = <DRAWINDEX>
     $\TexFx\_2 = <DRAWOFFSET>
-    run = CommandList\TexFx\SetResourceReferences
-    run = CustomShader\TexFx\Component.0
+    run = CommandList\TexFx\Component.0
 endif
-drawindexed = <DRAWINDEX>, <DRAWOFFSET>, 0
-run = CommandList\TexFx\ResetResources
 ```
 
 ### Troubleshooting
