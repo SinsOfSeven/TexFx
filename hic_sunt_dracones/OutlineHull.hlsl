@@ -24,14 +24,10 @@ cbuffer cb0 : register(b0)
   float4 cb0[56];
 }
 
-
-
-
 // 3Dmigoto declarations
 #define cmp -
 Texture1D<float4> IniParams : register(t120);
 Texture2D<float4> StereoParams : register(t125);
-#define hull_hack IniParams[69].w
 #define OFFSET IniParams[169].x
 
 void main(
@@ -50,7 +46,7 @@ void main(
   float4 r0,r1,r2,r3,r4,r5;
   uint4 bitmask, uiDest;
   float4 fDest;
-  if(hull_hack==0)  v1.zw = float2(0.0,0.0);
+  v1.zw = float2(0.0,0.0);
   r5.xyzw = float4(0.0,0.0,0.0,0.0);
   o0 = r5;
   o1 = r5;

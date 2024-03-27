@@ -16,9 +16,9 @@ Bloom Intensity (Glow) on the BLUE channel.
 
 Channel | Value |Effect
 :-      |:-     |:-
-RGB     | 0     | Ignore TexFx
+RGB     | 0     | Do nothing
 Red     | 1-254 | Transparent
-Red     | 255   | Discard (Skip)
+Red     | 255   | Discard (Skip Rendering)
 Green   | 1-255 | Shadow - Bright
 Blue    | 1-255 | Bloom
 
@@ -109,6 +109,7 @@ if $Hood == 1
     $\texfx\bloom_intensity = $VAR2
     $\TexFx\_1 = <DRAWINDEX>
     $\TexFx\_2 = <DRAWOFFSET>
+    run = CommandList\TexFx\Shh
     run = CommandList\TexFx\Component.0
 endif
 ```

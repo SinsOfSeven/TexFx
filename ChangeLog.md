@@ -62,8 +62,10 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 ## Additions
 - `$\TexFx\bloom_intesity` and `$\TexFx\glow_intesity` added to make changing the values of bloom and glow easier.
 - More Aliases! (README.md)
+
+## Refactor
+- HullHack Refactored to use different custom shaders when supressed.
 - CommandLists to simplify component style calls. `CommandList\TexFx\Component.0`
 
 # Version 1.05 (Planned)
 Shadow Shading and a default UV Animation that doesn't suck.
-Change HullHack to use different CustomShaders instead of passing the information to the vertex shader.
