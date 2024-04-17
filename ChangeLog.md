@@ -67,5 +67,10 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - HullHack Refactored to use different custom shaders when supressed.
 - CommandLists to simplify component style calls. `CommandList\TexFx\Component.0`
 
+# Version 1.045
+## Additions
+- Added CheckTextureOverride `ps-t4`,`ps-t5` to diffuse shader.
+- Added Custom Outline colors `ps-t70`, Thanks Annplan for sponsoring this feature!
+
 # Version 1.05 (Planned)
 Shadow Shading and a default UV Animation that doesn't suck.

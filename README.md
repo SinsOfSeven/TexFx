@@ -6,7 +6,9 @@
 [GameBanana Link](https://gamebanana.com/mods/485763)
 
 ### Usage Notes
-TexFx textures encode effects in the ps-t69 slot.
+TexFx textures encode effects in the ps-t69 and ps-t70 slot.
+
+#### TexFx Effects Mask (t69):
 
 Transparency (Opacity) on the RED channel
 
@@ -44,6 +46,25 @@ run = CommandList\TexFx\T.1
 ;   commandlist\texfx\T.0
 ;   commandlist\texfx\T.1
 ```
+
+#### TexFx Custom Outlines (t70):
+> Thanks to Annplan for Sponsoring this feature!
+
+The RGB channels will be directly assigned to the outline color if there is a texture in ps-t70. Applicable to Characters, Weapons, NPCs, Monsters and More! 
+
+> [!INFO]
+> This will not likely work with parts which are using transparency. There is a work around, but that can wait.
+
+```ini
+[TextureOverrideFavoniusGreatsword]
+hash = 945cd6d3
+match_priority = 0
+ps-t70 = ResourceFaveSwordOutline
+
+[ResourceFaveSwordOutline]
+filename = FaveSwordOutline.dds
+```
+
 
 ```ini
 ; Notable TexFx Words and Aliases.

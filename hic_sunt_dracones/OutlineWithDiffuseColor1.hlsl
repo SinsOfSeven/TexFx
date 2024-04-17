@@ -89,7 +89,8 @@ void main(
   ren1,ren2,ren3,ren4,
   region,
   mask,diffuse,lightmap,normalmap;
-
+  float2 dims;
+  
 //Re-enable Modesty
   r0.x = cmp(0 != cb0[35].y);
   r0.y = -0.00999999978 + v1.w;
@@ -123,9 +124,13 @@ void main(
   }
 //End Modest
 
-  mask.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
-  if(mask.x == 0.0) discard;
-  if(mask.x == 1.0) discard;
+  t69.GetDimensions(dims.x, dims.y);
+  mask.xyzw = t69.Load(int3(v2.xy*dims.xy,0)).xyzw;
+  //mask.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
+  //if(mask.y == 0){
+    if(mask.x == 0.0) discard;
+    if(mask.x == 1.0) discard;
+  //}
 
   ren1.xyzw = t71.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   ren2.xyzw = t72.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
@@ -142,7 +147,7 @@ void main(
   r0 = float4(0,0,0,0);
   r3 = float4(0,0,0,0); r4 = float4(0,0,0,0); r5 = float4(0,0,0,0); r6 = float4(0,0,0,0);
   r0.x = -1 + 0.5;
-  r4.xyzw = t1.SampleBias(s1_s, v2.xy, r0.x).xyzw;
+  r4.xyzw = t2.SampleBias(s1_s, v2.xy, r0.x).xyzw;
   r3.xy = float2(0,0);
   r0.x = 0;
   r5.xyzw = cmp(r4.wwww >= float4(0.800000012,0.400000006,0.200000003,0.600000024));
@@ -174,16 +179,17 @@ void main(
     r2.w = 0.0;
   }
 
-  r3.y = mask.y > 0 ? mask.y * intensity.y : 0.2;
+  r3.y = mask.y > 0 ? mask.y * intensity.y : 0.223606795;
+  r3.z = mask.z > 0 ? mask.z * intensity.z : 0.0;
   o0.xyz = v3.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
   o0.w = r5.x ? 0.333000 : 0;
   o1 = float4(0,0,0,0);
   o1.xyz = r2.xyz;
   o1.w = r3.y;
   o2.xyz = r2.xyz;
-  o2.w = 1;
+  o2.w = 1.0;
   o3.x = 0.0;
-  o4.x = mask.z * intensity.z;
+  o4.x = r3.z;
   o5.x = 0.0;
 
   return;

@@ -89,6 +89,7 @@ void main(
   ren1,ren2,ren3,ren4,
   region,
   mask,diffuse,lightmap,normalmap;
+  float2 dims;
 
 //Re-enable Modesty
   r0.x = -(0 != cb0[35].y);
@@ -129,7 +130,9 @@ void main(
   if (r0.x != 0) discard;
 //End Modesty
 
-  mask.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
+  t69.GetDimensions(dims.x, dims.y);
+  mask.xyzw = t69.Load(int3(v2.xy*dims.xy,0)).xyzw;
+  //mask.xyzw = t69.Sample(s1_s, v2.xy).xyzw;
   //if(mask.y == 0){
     if(mask.x == 0.0) discard;
     if(mask.x == 1.0) discard;
@@ -144,7 +147,7 @@ void main(
 
   ren1 = ren1 + ren2 * 0.25;
   ren1 = clamp(ren1,0,1);
-  
+  //r5.xyzw = 1;
   //pray
   r0 = float4(0,0,0,0);
   r3 = float4(0,0,0,0); r4 = float4(0,0,0,0); r5 = float4(0,0,0,0); r6 = float4(0,0,0,0);
@@ -182,16 +185,17 @@ void main(
     r2.w = 0.0;
   }
   
-  r3.y = mask.y > 0 ? mask.y * intensity.y : 0.2;
+  r3.y = mask.y > 0 ? mask.y * intensity.y : 0.223606795;
+  r3.z = mask.z > 0 ? mask.z * intensity.z : 0.0;
   o0.xyz = v3.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
   o0.w = r5.x ? 0.333000 : 0;
-  o1 = float4(0,0,0,0);
+  o1 = float4(0,0,0,0.0);
   o1.xyz = r2.xyz;
   o1.w = r3.y;
   o2.xyz = r2.xyz;
   o2.w = 1.0;
   o3.x = 0.0;
-  o4.x = mask.z * intensity.z;
+  o4.x = r3.z;
   o5.x = 0.0;
 
   return;
