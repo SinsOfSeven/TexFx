@@ -52,7 +52,7 @@ run = CommandList\TexFx\T.1
 
 The RGB channels will be directly assigned to the outline color if there is a texture in ps-t70. Applicable to Characters, Weapons, NPCs, Monsters and More! 
 
-> [!INFO]
+> [!TIP]
 > This will not likely work with parts which are using transparency. There is a work around, but that can wait.
 
 ```ini
@@ -130,7 +130,6 @@ if $Hood == 1
     $\texfx\bloom_intensity = $VAR2
     $\TexFx\_1 = <DRAWINDEX>
     $\TexFx\_2 = <DRAWOFFSET>
-    run = CommandList\TexFx\Shh
     run = CommandList\TexFx\Component.0
 endif
 ```
@@ -163,7 +162,7 @@ Extensions are add-on type mods that are intended to be used with TexFx Main, bu
 The intent is to allow anyone to make extensions for the main mod. This could include new effect shaders, new pre-made effects, or utilities. As I add features this should be a lot more appealing, but for now I have just added a very early example and the first utility mod.
 
 #### Int Opacity (Deprecated)
-> [!INFO]
+> [!TIP]
 > This Extension will be removed in favor of a different tool called [FakeLightmap](https://github.com/SinsOfSeven/SliderImpact/tree/main/FakeLightmap), a Virtual Texture mod which can be used to quickly manipulate texture values in game!
 The `int_opacity` extension is zipped in `denn_die_todten_reiten_schnell`
 Just unzip and it will enable the following commands. (Requires Main)
