@@ -57,8 +57,7 @@ cbuffer cb0 : register(b0)
 
 
 // 3Dmigoto declarations
-#define cmp -
-#define modesty IniParams[69].z
+#define uncensor IniParams[69].z
 #define intensity IniParams[70].xyzw
 Texture1D<float4> IniParams : register(t120);
 Texture2D<float4> StereoParams : register(t125);
@@ -92,19 +91,19 @@ void main(
   float2 dims;
   
 //Re-enable Modesty
-  r0.x = cmp(0 != cb0[35].y);
+  r0.x = -(0 != cb0[35].y);
   r0.y = -0.00999999978 + v1.w;
-  r0.y = cmp(r0.y < 0);
+  r0.y = -(r0.y < 0);
   r0.x = r0.x ? r0.y : 0;
   if (r0.x != 0) discard;
-  r0.x = cmp(0 != cb0[40].y);
+  r0.x = -(0 != cb0[40].y);
   if (r0.x != 0) {
-    r0.x = cmp(cb0[40].z < 0.949999988);
+    r0.x = -(cb0[40].z < 0.949999988);
     if (r0.x != 0) {
       r0.xy = v4.yx / v4.ww;
       r0.xy = cb1[7].yx * r0.xy;
       r0.xy = float2(0.25,0.25) * r0.xy;
-      r0.zw = cmp(r0.xy >= -r0.xy);
+      r0.zw = -(r0.xy >= -r0.xy);
       r0.xy = frac(abs(r0.xy));
       r0.xy = r0.zw ? r0.xy : -r0.xy;
       r0.xy = float2(4,4) * r0.xy;
@@ -116,13 +115,19 @@ void main(
       r0.x = dot(r1.xyzw, icb[r0.x+0].xyzw);
       r0.x = cb0[40].z * 17 + -r0.x;
       r0.x = -0.00999999978 + r0.x;
-      r0.x = cmp(r0.x < 0);
-      if (modesty != 0.0){
+      r0.x = -(r0.x < 0);
+      if (uncensor == 0.0){
         if (r0.x != 0) discard;
       }
     }
   }
-//End Modest
+  r0.x = t1.Sample(s0_s, v2.xy).w;
+  r0.y = -(cb0[38].x == 1.000000);
+  r0.x = -cb0[38].y + r0.x;
+  r0.x = -(r0.x < 0);
+  r0.x = r0.y ? r0.x : 0;
+  if (r0.x != 0) discard;
+//End Modesty
 
   t69.GetDimensions(dims.x, dims.y);
   mask.xyzw = t69.Load(int3(v2.xy*dims.xy,0)).xyzw;
@@ -150,29 +155,30 @@ void main(
   r4.xyzw = t2.SampleBias(s1_s, v2.xy, r0.x).xyzw;
   r3.xy = float2(0,0);
   r0.x = 0;
-  r5.xyzw = cmp(r4.wwww >= float4(0.800000012,0.400000006,0.200000003,0.600000024));
+  r5.xyzw = -(r4.wwww >= float4(0.800000012,0.400000006,0.200000003,0.600000024));
   r0.x = r0.x ? r5.x : 0;
   r0.x = r0.x ? 2 : 1;
-  r3.w = cmp(0 != 10);
+  r3.w = -(0 != 10);
   r3.w = r5.y ? r3.w : 0;
-  r6.xyz = cmp(r4.www < float3(0.600000024,0.400000006,0.800000012));
+  r6.xyz = -(r4.www < float3(0.600000024,0.400000006,0.800000012));
   r3.w = r3.w ? r6.x : 0;
   r0.x = r3.w ? 3 : r0.x;
-  r3.w = cmp(0 != 10);
+  r3.w = -(0 != 10);
   r3.w = r5.z ? r3.w : 0;
   r3.w = r6.y ? r3.w : 0;
   r0.x = r3.w ? 4 : r0.x;
-  r3.w = cmp(0 != 10);
+  r3.w = -(0 != 10);
   r3.w = r5.w ? r3.w : 0;
   r3.w = r6.z ? r3.w : 0;
   r0.x = r3.w ? 5 : r0.x;
-  r5.xyzw = cmp(r0.xxxx == float4(2,3,4,5));
+  r5.xyzw = -(r0.xxxx == float4(2,3,4,5));
   //
   if(ren1.x > 0.0 || ren1.y > 0.0 || ren1.z > 0.0){
-    r2.xyz = float3(
+    r2.xyzw = float4(
       lerp(diffuse.x, ren1.x, mask.x),
       lerp(diffuse.y, ren1.y, mask.x),
-      lerp(diffuse.z, ren1.z, mask.x)
+      lerp(diffuse.z, ren1.z, mask.x),
+      0.0
     );
   }else{
     r2.xyz = diffuse.xyz*0.5;
