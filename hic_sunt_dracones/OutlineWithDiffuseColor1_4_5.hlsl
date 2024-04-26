@@ -89,16 +89,16 @@ void main(
   region,
   mask,diffuse,lightmap,normalmap;
   float2 dims;
-
+  
 //Re-enable Modesty
-  r0.x = -(0 != cb0[36].y);
+  r0.x = -(0 != cb0[35].y);
   r0.y = -0.00999999978 + v1.w;
   r0.y = -(r0.y < 0);
   r0.x = r0.x ? r0.y : 0;
   if (r0.x != 0) discard;
-  r0.x = -(0 != cb0[41].y);
+  r0.x = -(0 != cb0[40].y);
   if (r0.x != 0) {
-    r0.x = -(cb0[41].z < 0.949999988);
+    r0.x = -(cb0[40].z < 0.949999988);
     if (r0.x != 0) {
       r0.xy = v4.yx / v4.ww;
       r0.xy = cb1[7].yx * r0.xy;
@@ -108,12 +108,12 @@ void main(
       r0.xy = r0.zw ? r0.xy : -r0.xy;
       r0.xy = float2(4,4) * r0.xy;
       r0.xy = (uint2)r0.xy;
-      r1.x = dot(cb0[17].xyzw, icb[r0.y+0].xyzw);
-      r1.y = dot(cb0[18].xyzw, icb[r0.y+0].xyzw);
-      r1.z = dot(cb0[19].xyzw, icb[r0.y+0].xyzw);
-      r1.w = dot(cb0[20].xyzw, icb[r0.y+0].xyzw);
+      r1.x = dot(cb0[16].xyzw, icb[r0.y+0].xyzw);
+      r1.y = dot(cb0[17].xyzw, icb[r0.y+0].xyzw);
+      r1.z = dot(cb0[18].xyzw, icb[r0.y+0].xyzw);
+      r1.w = dot(cb0[19].xyzw, icb[r0.y+0].xyzw);
       r0.x = dot(r1.xyzw, icb[r0.x+0].xyzw);
-      r0.x = cb0[41].z * 17 + -r0.x;
+      r0.x = cb0[40].z * 17 + -r0.x;
       r0.x = -0.00999999978 + r0.x;
       r0.x = -(r0.x < 0);
       if (uncensor == 0.0){
@@ -121,9 +121,9 @@ void main(
       }
     }
   }
-  r0.x = t0.Sample(s0_s, v2.xy).w;
-  r0.y = -(cb0[39].x == 1.000000);
-  r0.x = -cb0[39].y + r0.x;
+  r0.x = t1.Sample(s0_s, v2.xy).w;
+  r0.y = -(cb0[38].x == 1.000000);
+  r0.x = -cb0[38].y + r0.x;
   r0.x = -(r0.x < 0);
   r0.x = r0.y ? r0.x : 0;
   if (r0.x != 0) discard;
@@ -141,17 +141,18 @@ void main(
   ren2.xyzw = t72.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // ren3.xyzw = t73.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // ren4.xyzw = t74.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
-  diffuse.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
-  lightmap.xyzw = t1.Sample(s1_s, v2.xy).xyzw;
+  normalmap.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
+  diffuse.xyzw = t1.Sample(s1_s, v2.xy).xyzw;
+  lightmap.xyzw = t2.Sample(s2_s, v2.xy).xyzw;
 
   ren1 = ren1 + ren2 * 0.25;
   ren1 = clamp(ren1,0,1);
-
+  
   //pray
   r0 = float4(0,0,0,0);
   r3 = float4(0,0,0,0); r4 = float4(0,0,0,0); r5 = float4(0,0,0,0); r6 = float4(0,0,0,0);
   r0.x = -1 + 0.5;
-  r4.xyzw = t1.SampleBias(s1_s, v2.xy, r0.x).xyzw;
+  r4.xyzw = t2.SampleBias(s1_s, v2.xy, r0.x).xyzw;
   r3.xy = float2(0,0);
   r0.x = 0;
   r5.xyzw = -(r4.wwww >= float4(0.800000012,0.400000006,0.200000003,0.600000024));
@@ -183,7 +184,7 @@ void main(
     r2.xyz = diffuse.xyz*0.5;
     r2.w = 0.0;
   }
-  
+
   r3.y = mask.y > 0 ? mask.y * intensity.y : 0.223606795;
   r3.z = mask.z > 0 ? mask.z * intensity.z : 0.0;
   o0.xyz = v3.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);

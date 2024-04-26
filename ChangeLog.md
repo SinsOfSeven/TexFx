@@ -72,5 +72,17 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - Added CheckTextureOverride `ps-t4`,`ps-t5` to diffuse shader.
 - Added Custom Outline colors `ps-t70`, Thanks Annplan for sponsoring this feature!
 
+## Fixes
+- Updated VertexShader HullHack to 4.6
+
+# Version 1.046
+## Fixes
+- Fixed issues with 3.0+ versions of the shader
+- Fixed uncensor for Transparency for 4.6
+
+## Additions
+- PS support for 3.4 - 4.5
+
+
 # Version 1.05 (Planned)
 Shadow Shading and a default UV Animation that doesn't suck.

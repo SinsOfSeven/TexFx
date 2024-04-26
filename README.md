@@ -120,6 +120,8 @@ If you prefer the old way, you can add **one** of these commands to your mod. (A
 This introduces some new concepts that allow us to use TexFx in a new and exciting way, we can use it to create "Materials" or "Sub Parts" like a pair of sunglasses which which can have thier own draw passes! We can create other custom shaders and effects, but for now I've included two default ones which use normal TexFx behavior.
 
 The syntax is verbose, but it's a price we must pay for power.
+
+I recommend using the `.0` version even for 3.0+ characters so it is compatable with ORFix, due to a technical limit, it would be too hard to hard to fix it like `\Transparency.1`
 ```ini
 ; Use Example
 if $Hood == 1

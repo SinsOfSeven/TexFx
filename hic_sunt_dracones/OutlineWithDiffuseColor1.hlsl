@@ -91,14 +91,14 @@ void main(
   float2 dims;
   
 //Re-enable Modesty
-  r0.x = -(0 != cb0[35].y);
+  r0.x = -(0 != cb0[36].y);
   r0.y = -0.00999999978 + v1.w;
   r0.y = -(r0.y < 0);
   r0.x = r0.x ? r0.y : 0;
   if (r0.x != 0) discard;
-  r0.x = -(0 != cb0[40].y);
+  r0.x = -(0 != cb0[41].y);
   if (r0.x != 0) {
-    r0.x = -(cb0[40].z < 0.949999988);
+    r0.x = -(cb0[41].z < 0.949999988);
     if (r0.x != 0) {
       r0.xy = v4.yx / v4.ww;
       r0.xy = cb1[7].yx * r0.xy;
@@ -108,12 +108,12 @@ void main(
       r0.xy = r0.zw ? r0.xy : -r0.xy;
       r0.xy = float2(4,4) * r0.xy;
       r0.xy = (uint2)r0.xy;
-      r1.x = dot(cb0[16].xyzw, icb[r0.y+0].xyzw);
-      r1.y = dot(cb0[17].xyzw, icb[r0.y+0].xyzw);
-      r1.z = dot(cb0[18].xyzw, icb[r0.y+0].xyzw);
-      r1.w = dot(cb0[19].xyzw, icb[r0.y+0].xyzw);
+      r1.x = dot(cb0[17].xyzw, icb[r0.y+0].xyzw);
+      r1.y = dot(cb0[18].xyzw, icb[r0.y+0].xyzw);
+      r1.z = dot(cb0[19].xyzw, icb[r0.y+0].xyzw);
+      r1.w = dot(cb0[20].xyzw, icb[r0.y+0].xyzw);
       r0.x = dot(r1.xyzw, icb[r0.x+0].xyzw);
-      r0.x = cb0[40].z * 17 + -r0.x;
+      r0.x = cb0[41].z * 17 + -r0.x;
       r0.x = -0.00999999978 + r0.x;
       r0.x = -(r0.x < 0);
       if (uncensor == 0.0){
@@ -121,9 +121,9 @@ void main(
       }
     }
   }
-  r0.x = t1.Sample(s0_s, v2.xy).w;
-  r0.y = -(cb0[38].x == 1.000000);
-  r0.x = -cb0[38].y + r0.x;
+  r0.x = t0.Sample(s0_s, v2.xy).w;
+  r0.y = -(cb0[39].x == 1.000000);
+  r0.x = -cb0[39].y + r0.x;
   r0.x = -(r0.x < 0);
   r0.x = r0.y ? r0.x : 0;
   if (r0.x != 0) discard;
