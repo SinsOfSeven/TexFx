@@ -50,10 +50,7 @@ run = CommandList\TexFx\T.1
 #### TexFx Custom Outlines (t70):
 > Thanks to Annplan for Sponsoring this feature!
 
-The RGB channels will be directly assigned to the outline color if there is a texture in ps-t70. Applicable to Characters, Weapons, NPCs, Monsters and More! 
-
-> [!TIP]
-> This will not likely work with parts which are using transparency. There is a work around, but that can wait.
+The RGB channels will be directly assigned to the outline color if there is a texture in ps-t70. Applicable to Characters, Weapons, NPCs, Monsters and More!
 
 ```ini
 [TextureOverrideFavoniusGreatsword]
@@ -65,31 +62,39 @@ ps-t70 = ResourceFaveSwordOutline
 filename = FaveSwordOutline.dds
 ```
 
-
 ```ini
 ; Notable TexFx Words and Aliases.
+
+; TexFx CommandLists for Default Transparency.
 run = CommandList\TexFx\T
 run = CommandList\TexFx\T.0
 run = CommandList\TexFx\Transparency
 run = CommandList\TexFx\Transparency.0
-
+;-slot 0 normal maps
 run = CommandList\TexFx\T.1
 run = CommandList\TexFx\Transparency.1
 
+; TexFx CommandLists for Default Component based Transparency.
 run = CommandList\TexFx\C
 run = CommandList\TexFx\C.0
 run = CommandList\TexFx\Component
 run = CommandList\TexFx\Component.0
-
+;-slot 0 normal maps
 run = CommandList\TexFx\C.1
 run = CommandList\TexFx\Component.1
 
+; Disable the built in "Hull Hack" which ignores vertex colors which offsets transparency.
 run = CommandList\TexFx\Shh
 run = CommandList\TexFx\SupHH
 run = CommandList\TexFx\SupressHullHack
 
-run = CommandList\TexFx\RR
-run = CommandList\TexFx\ResetResources
+; Force Outline for Transparent parts on/off
+run = CommandListFO.E
+run = CommandListFO.Enable
+run = CommandListForceOutline.Enable
+run = CommandListFO.D
+run = CommandListFO.Disable
+run = CommandListForceOutline.Disable
 
 ; To multiply your Green and Blue Channels
 $\TexFx\bloom_intesity
@@ -157,6 +162,10 @@ Just try changing which version of the command you're using.
 > [!WARNING]
 > Severe: SilentNightSounds [Remove Transparency Filter](https://gamebanana.com/mods/406659)
 > This will likely cause transparent parts to be drawn over the original, resulting in no transparency and a slight glow.
+
+#### Recommended
+[ORFix](https://github.com/leotorrez/LeoTools/blob/main/releases/ORFix.ini)
+[Underwater Uncensor](https://gamebanana.com/mods/462790)
 
 ### Extensions
 Extensions are add-on type mods that are intended to be used with TexFx Main, but will not guarantee compatibility between versions. For example, I already regret the name of the first extension, because the numbers are backwards for the name. The exensions folder `denn_die_todten_reiten_schnell` may be renamed in the near future as well.
