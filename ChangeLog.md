@@ -83,14 +83,23 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 ## Additions
 - PS support for 3.4 - 4.5
 
-# Version 1.047
+# Version 1.047 (Preview)
 ## Breaking
 - Changes transparent parts to have outlines by default. Will lightly impact the look of existing mods.
+    - This can result in some existing mods looking opaque (possibly due to normal direction).
+- Tenatively changed how glow and emissives are calculated to prevent them from being darkened. 
+    - This will result in existing mods with glow to appear brighter.
 
 ## Additions
+- Tried to make the readme more informative. ♥
+- Added Config.ini to help store user settings.
 - Added commands to allow modders to force a mod for outline transparency to on or off
 - Added a key binding to toggle the outlines for transparent parts mode.
-- Tried to make the readme more informative. ♥
+- Added a key binding to toggle the "Seizure" setting on and off.
+- Tenatively added RGB Masking to the Alpha Channel of TexFx t69 Mask.
+    - This may result in improperly setup old mods displaying black.
+    - Alpha Channel values BELOW 64 will activate this new effect.
+    - `$\texfx\r`, `$\texfx\g`, `$\texfx\b` to control the Alpha Channel Mask color override.
 
 ## Removed
 - Removed `d3dx_overrides.ini`, I recommend Ctrl+Del the `ShaderCache` Folder, be careful not to delete files like this often.

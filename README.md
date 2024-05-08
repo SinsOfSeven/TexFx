@@ -16,6 +16,8 @@ Emissives (Brightness) on the GREEN channel
 
 Bloom Intensity (Glow) on the BLUE channel.
 
+Color Override (RGB) on the ALPHA channel.
+
 Channel | Value |Effect
 :-      |:-     |:-
 RGB     | 0     | Do nothing
@@ -23,6 +25,7 @@ Red     | 1-254 | Transparent
 Red     | 255   | Discard (Skip Rendering)
 Green   | 1-255 | Shadow - Bright
 Blue    | 1-255 | Bloom
+Alpha   | 0-63  | Variable Color Replace
 
 `$\TexFx\glow_intesity` and `$\TexFx\bloom_intesity` may be used to change the intesity of Green and Blue.
 
@@ -99,6 +102,10 @@ run = CommandListForceOutline.Disable
 ; To multiply your Green and Blue Channels
 $\TexFx\bloom_intesity
 $\TexFx\glow_intesity
+; TexFx Alpha Channel, Variable Color Replace.
+$\TexFx\r
+$\TexFx\g
+$\TexFx\b
 ; TexFx version number
 $\TexFx\version
 ; Draw Indexed Carriers for Components
