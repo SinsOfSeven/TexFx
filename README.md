@@ -16,11 +16,7 @@ Emissives (Brightness) on the GREEN channel
 
 Bloom Intensity (Glow) on the BLUE channel.
 
-<<<<<<< HEAD
 HSV Shift on the ALPHA channel.
-=======
-Color Override (RGB) on the ALPHA channel.
->>>>>>> c0745c175bc1e4bfb06db258cf4da9790e49b57f
 
 Channel | Value |Effect
 :-      |:-     |:-
@@ -29,11 +25,7 @@ Red     | 1-254 | Transparent
 Red     | 255   | Discard (Skip Rendering)
 Green   | 1-255 | Shadow - Bright
 Blue    | 1-255 | Bloom
-<<<<<<< HEAD
 Alpha   | 1-63  | Variable Color Replace
-=======
-Alpha   | 0-63  | Variable Color Replace
->>>>>>> c0745c175bc1e4bfb06db258cf4da9790e49b57f
 
 `$\TexFx\glow_intesity` and `$\TexFx\bloom_intesity` may be used to change the intesity of Green and Blue, or `$\TexFx\hue`, `$\TexFx\sat`, `$\TexFx\val` of the Alpha lower segment.
 
@@ -117,15 +109,9 @@ run = CommandList\TexFx\SetIV
 $\TexFx\bloom_intesity
 $\TexFx\glow_intesity
 ; TexFx Alpha Channel, Variable Color Replace.
-<<<<<<< HEAD
 $\TexFx\hue
 $\TexFx\sat
 $\TexFx\val
-=======
-$\TexFx\r
-$\TexFx\g
-$\TexFx\b
->>>>>>> c0745c175bc1e4bfb06db258cf4da9790e49b57f
 ; TexFx version number
 $\TexFx\version
 ; Draw Indexed Carriers for Components

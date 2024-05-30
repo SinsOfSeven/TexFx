@@ -96,18 +96,11 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - Added commands to allow modders to force a mod for outline transparency to on or off
 - Added a key binding to toggle the outlines for transparent parts mode.
 - Added a key binding to toggle the "Seizure" setting on and off.
-<<<<<<< HEAD
 - Tenatively added ~~RGB~~ HSV Masking to the Alpha Channel of TexFx t69 Mask.
     - This may result in improperly setup old mods displaying black.
     - Alpha Channel values BELOW 64 will activate this new effect.
     - ~~`$\texfx\r`, `$\texfx\g`, `$\texfx\b` to control the Alpha Channel Mask color override.~~
     - `$\texfx\hue`, `$\texfx\sat`, `$\texfx\val` to control the Alpha Channel Mask color override.
-=======
-- Tenatively added RGB Masking to the Alpha Channel of TexFx t69 Mask.
-    - This may result in improperly setup old mods displaying black.
-    - Alpha Channel values BELOW 64 will activate this new effect.
-    - `$\texfx\r`, `$\texfx\g`, `$\texfx\b` to control the Alpha Channel Mask color override.
->>>>>>> c0745c175bc1e4bfb06db258cf4da9790e49b57f
 
 ## Removed
 - Removed `d3dx_overrides.ini`, I recommend Ctrl+Del the `ShaderCache` Folder, be careful not to delete files like this often.

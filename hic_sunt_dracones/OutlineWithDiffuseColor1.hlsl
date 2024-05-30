@@ -175,11 +175,7 @@ void main(
   r0.x = r3.w ? 5 : r0.x;
   r5.xyzw = -(r0.xxxx == float4(2,3,4,5));
   //
-<<<<<<< HEAD
   diffuse.xyz = mask.w > 0 && mask.w < 0.25 && color.w == 1 ? color.xyz : diffuse.xyz;
-=======
-  diffuse.xyz = mask.w < 0.25 ? color.xyz : diffuse.xyz;
->>>>>>> c0745c175bc1e4bfb06db258cf4da9790e49b57f
   if(ren1.x > 0.0 || ren1.y > 0.0 || ren1.z > 0.0){
     r2.xyzw = float4(
       lerp(diffuse.x, ren1.x, mask.x),
