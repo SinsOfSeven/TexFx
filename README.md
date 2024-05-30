@@ -16,7 +16,7 @@ Emissives (Brightness) on the GREEN channel
 
 Bloom Intensity (Glow) on the BLUE channel.
 
-Color Override (RGB) on the ALPHA channel.
+HSV Shift on the ALPHA channel.
 
 Channel | Value |Effect
 :-      |:-     |:-
@@ -27,7 +27,9 @@ Green   | 1-255 | Shadow - Bright
 Blue    | 1-255 | Bloom
 Alpha   | 1-63  | Variable Color Replace
 
-`$\TexFx\glow_intesity` and `$\TexFx\bloom_intesity` may be used to change the intesity of Green and Blue.
+`$\TexFx\glow_intesity` and `$\TexFx\bloom_intesity` may be used to change the intesity of Green and Blue, or `$\TexFx\hue`, `$\TexFx\sat`, `$\TexFx\val` of the Alpha lower segment.
+
+**run = CommandList\TexFx\SetIV** now required for effects for \T.
 
 It is recommended to set unaffected parts to `ps-t69 = null`
 
@@ -42,6 +44,7 @@ ps-t1 = ResourceHeadDiffuse
 ps-t2 = ResourceHeadLightMap
 ps-t69 = ResourceTexFxMap
 run = CommandList\TexFx\T.1
+;run = CommandList\TexFx\SetIV
 ;   \Transparency.0 (2.9-) Part has no Normal Map
 ;   \Transparency.1 (3.0+) Part has a Normal Map
 ;
@@ -99,13 +102,16 @@ run = CommandListFO.D
 run = CommandListFO.Disable
 run = CommandListForceOutline.Disable
 
+; Use when setting the hsv or glow/bloom if using \T
+run = CommandList\TexFx\SetIV
+
 ; To multiply your Green and Blue Channels
 $\TexFx\bloom_intesity
 $\TexFx\glow_intesity
 ; TexFx Alpha Channel, Variable Color Replace.
-$\TexFx\r
-$\TexFx\g
-$\TexFx\b
+$\TexFx\hue
+$\TexFx\sat
+$\TexFx\val
 ; TexFx version number
 $\TexFx\version
 ; Draw Indexed Carriers for Components

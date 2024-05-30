@@ -92,6 +92,7 @@ void main(
   float2 dims;
   
 //Re-enable Modesty
+  r1.xyz = v7.xxx ? v3.xyz : -v3.xyz;
   r0.x = -(0 != cb0[36].y);
   r0.y = -0.00999999978 + v1.w;
   r0.y = -(r0.y < 0);
@@ -188,8 +189,8 @@ void main(
   }
 
   r3.y = mask.y > 0 ? mask.y * intensity.y : 0.223606795;
-  r3.z = mask.z > 0 ? mask.z * intensity.z : 0.0;
-  o0.xyz = v3.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
+  r3.z = mask.z > 0 ? mask.z * intensity.z : 0.223606795;
+  o0.xyz = r1.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
   o0.w = r5.x ? 0.333000 : 0;
   o1 = float4(0,0,0,0);
   o1.xyz = r2.xyz;
