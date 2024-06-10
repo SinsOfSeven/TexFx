@@ -55,11 +55,38 @@ cbuffer cb0 : register(b0)
   float4 cb0[90];
 }
 
+// #MARK: --- HSV CODE ---
+// http://lolengine.net/blog/2013/07/27/rgb-to-hsv-in-glsl
+float3 rgb2hsv(float3 c)
+{
+  float4 K = float4(0.f, -1.f / 3.f, 2.f / 3.f, -1.f);
+  float4 p = c.g < c.b ? float4(c.bg, K.wz) : float4(c.gb, K.xy);
+  float4 q = c.r < p.x ? float4(p.xyw, c.r) : float4(c.r, p.yzx);
 
-// 3Dmigoto declarations
+  float d = q.x - min(q.w, q.y);
+  float e = 1e-10;
+  return float3(abs(q.z + (q.w - q.y) / (6.f * d + e)), d / (q.x + e), q.x);
+}
+
+float3 hsv2rgb(float3 c)
+{
+  float4 K = float4(1.f, 2.f / 3.f, 1.f / 3.f, 3.f);
+  float3 p = abs(frac(c.xxx + K.xyz) * 6.f - K.www);
+  return c.z * lerp(K.xxx, saturate(p - K.xxx), c.y);
+}
+
+float3 adjust_hue(float3 HSV, float3 offset)
+{
+	if(HSV.x>=0.266f) HSV.x = fmod(HSV.x + offset.x, 1);
+  HSV.y *= offset.y;
+  HSV.z *= offset.z;
+	return HSV;
+}
+
+// #MARK: 3Dmigoto declarations
 #define uncensor IniParams[69].z
 #define intensity IniParams[70].xyzw
-#define color IniParams[71].xyzw
+#define hsv_in IniParams[71].xyzw
 Texture1D<float4> IniParams : register(t120);
 Texture2D<float4> StereoParams : register(t125);
 
@@ -175,7 +202,10 @@ void main(
   r0.x = r3.w ? 5 : r0.x;
   r5.xyzw = -(r0.xxxx == float4(2,3,4,5));
   //
-  diffuse.xyz = mask.w > 0 && mask.w < 0.25 && color.w == 1 ? color.xyz : diffuse.xyz;
+  float3 hsv = rgb2hsv(diffuse.xyz);
+  hsv = adjust_hue(hsv, hsv_in.xyz);
+  hsv = hsv2rgb(hsv);
+  diffuse.xyz = mask.w > 0 && mask.w < 0.25 && hsv_in.w == 1 ? hsv.xyz : diffuse.xyz;
   if(ren1.x > 0.0 || ren1.y > 0.0 || ren1.z > 0.0){
     r2.xyzw = float4(
       lerp(diffuse.x, ren1.x, mask.x),

@@ -106,8 +106,11 @@ run = CommandListForceOutline.Disable
 run = CommandList\TexFx\SetIV
 
 ; To multiply your Green and Blue Channels
+; note, the 2nd options are shorthands.
 $\TexFx\bloom_intesity
+$\TexFx\bloom
 $\TexFx\glow_intesity
+$\TexFx\glow
 ; TexFx Alpha Channel, Variable Color Replace.
 $\TexFx\hue
 $\TexFx\sat
