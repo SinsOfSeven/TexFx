@@ -8,6 +8,9 @@
 ### Usage Notes
 TexFx textures encode effects in the ps-t69 and ps-t70 slot.
 
+#### Config.ini
+Inside the TexFx folder, there is a config.ini change some major settings which can impact some mods. The `$seizure` setting can be set to 1 or 0 to prevent mods which might have flashing or strobing effects with RGB. Please make sure to review this setting if you do or don't want it. It is set to `0` off by default.
+
 #### TexFx Effects Mask (t69):
 
 Transparency (Opacity) on the RED channel
