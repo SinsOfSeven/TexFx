@@ -60,6 +60,7 @@ run = CommandList\TexFx\T.1
 > Thanks to Annplan for Sponsoring this feature!
 
 The RGB channels will be directly assigned to the outline color if there is a texture in ps-t70. Applicable to Characters, Weapons, NPCs, Monsters and More!
+Alpha below 50% will discard the outlines.
 
 ```ini
 [TextureOverrideFavoniusGreatsword]
@@ -98,12 +99,12 @@ run = CommandList\TexFx\SupHH
 run = CommandList\TexFx\SupressHullHack
 
 ; Force Outline for Transparent parts on/off
-run = CommandListFO.E
-run = CommandListFO.Enable
-run = CommandListForceOutline.Enable
-run = CommandListFO.D
-run = CommandListFO.Disable
-run = CommandListForceOutline.Disable
+run = CommandList\TexFx\FO.E
+run = CommandList\TexFx\FO.Enable
+run = CommandList\TexFx\ForceOutline.Enable
+run = CommandList\TexFx\FO.D
+run = CommandList\TexFx\FO.Disable
+run = CommandList\TexFx\ForceOutline.Disable
 
 ; Use when setting the hsv or glow/bloom if using \T
 run = CommandList\TexFx\SetIV
