@@ -83,7 +83,7 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 ## Additions
 - PS support for 3.4 - 4.5
 
-# Version 1.047 (Preview)
+# Version 1.05
 ## Breaking
 - Changes transparent parts to have outlines by default. Will lightly impact the look of existing mods.
     - This can result in some existing mods looking opaque (possibly due to normal direction).
@@ -108,11 +108,12 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 ## Fixes
 - Fixed handling of variables to reset themselves properly. (might impact existing mods which were improperly setup.)
 - Fixed Component shaders to have outlines when they lacked them before.
+- Fixed Shaders 5.0 (transparency broken on Natlan Chars)
 
 ## Refactoring
 - Adjusted how some values are handled internally.
 - Moved user configurable values to the top of the Main.ini (hopefully this makes it easier to edit without keybindings).
 - Users now need to call `CommandList\TexFx\SetIV` to use the custom RGB and Glow Values.
 
-# Version 1.05 (Planned)
+# Version 1.051 (Planned)
 Shadow Shading and a default UV Animation that doesn't suck.

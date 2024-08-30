@@ -5,6 +5,9 @@
 
 [GameBanana Link](https://gamebanana.com/mods/485763)
 
+### NOTICE
+Currently, Natlan characters do not fully support transparency, this will be fixed soon.
+
 ### Usage Notes
 TexFx textures encode effects in the ps-t69 and ps-t70 slot.
 
