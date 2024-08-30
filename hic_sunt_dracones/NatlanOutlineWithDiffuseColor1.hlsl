@@ -143,6 +143,13 @@ void main(
       }
     }
   }
+  r0.xy = v6.xy * cb0[97].xy + cb0[97].zw;
+  r1.xyzw = t0.Sample(s0_s, r0.xy).xyzw;
+  r0.z = -(cb0[96].x == 1.000000);
+  r0.w = -cb0[96].y + r1.w;
+  r0.w = -(r0.w < 0);
+  r0.z = r0.z ? r0.w : 0;
+  if (r0.z != 0) discard;
  
 //End Modesty
   float2 dims;
