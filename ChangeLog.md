@@ -83,6 +83,36 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 ## Additions
 - PS support for 3.4 - 4.5
 
+# Version 1.047 (Preview)
+## Breaking
+- Changes transparent parts to have outlines by default. Will lightly impact the look of existing mods.
+    - This can result in some existing mods looking opaque (possibly due to normal direction).
+- Tenatively changed how glow and emissives are calculated to prevent them from being darkened. 
+    - This will result in existing mods with glow to appear brighter.
+
+## Additions
+- Tried to make the readme more informative. ♥
+- Added Config.ini to help store user settings.
+- Added commands to allow modders to force a mod for outline transparency to on or off
+- Added a key binding to toggle the outlines for transparent parts mode.
+- Added a key binding to toggle the "Seizure" setting on and off.
+- Tenatively added ~~RGB~~ HSV Masking to the Alpha Channel of TexFx t69 Mask.
+    - This may result in improperly setup old mods displaying black.
+    - Alpha Channel values BELOW 64 will activate this new effect.
+    - ~~`$\texfx\r`, `$\texfx\g`, `$\texfx\b` to control the Alpha Channel Mask color override.~~
+    - `$\texfx\hue`, `$\texfx\sat`, `$\texfx\val` to control the Alpha Channel Mask color override.
+
+## Removed
+- Removed `d3dx_overrides.ini`, I recommend Ctrl+Del the `ShaderCache` Folder, be careful not to delete files like this often.
+
+## Fixes
+- Fixed handling of variables to reset themselves properly. (might impact existing mods which were improperly setup.)
+- Fixed Component shaders to have outlines when they lacked them before.
+
+## Refactoring
+- Adjusted how some values are handled internally.
+- Moved user configurable values to the top of the Main.ini (hopefully this makes it easier to edit without keybindings).
+- Users now need to call `CommandList\TexFx\SetIV` to use the custom RGB and Glow Values.
 
 # Version 1.05 (Planned)
 Shadow Shading and a default UV Animation that doesn't suck.

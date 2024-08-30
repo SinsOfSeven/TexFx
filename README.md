@@ -8,6 +8,9 @@
 ### Usage Notes
 TexFx textures encode effects in the ps-t69 and ps-t70 slot.
 
+#### Config.ini
+Inside the TexFx folder, there is a config.ini change some major settings which can impact some mods. The `$seizure` setting can be set to 1 or 0 to prevent mods which might have flashing or strobing effects with RGB. Please make sure to review this setting if you do or don't want it. It is set to `0` off by default.
+
 #### TexFx Effects Mask (t69):
 
 Transparency (Opacity) on the RED channel
@@ -16,15 +19,20 @@ Emissives (Brightness) on the GREEN channel
 
 Bloom Intensity (Glow) on the BLUE channel.
 
+HSV Shift on the ALPHA channel.
+
 Channel | Value |Effect
 :-      |:-     |:-
-RGB     | 0     | Do nothing
+RGBA    | 0     | Do nothing
 Red     | 1-254 | Transparent
 Red     | 255   | Discard (Skip Rendering)
 Green   | 1-255 | Shadow - Bright
 Blue    | 1-255 | Bloom
+Alpha   | 1-63  | Variable Color Replace
 
-`$\TexFx\glow_intesity` and `$\TexFx\bloom_intesity` may be used to change the intesity of Green and Blue.
+`$\TexFx\glow_intesity` and `$\TexFx\bloom_intesity` may be used to change the intesity of Green and Blue, or `$\TexFx\hue`, `$\TexFx\sat`, `$\TexFx\val` of the Alpha lower segment.
+
+**run = CommandList\TexFx\SetIV** now required for effects for \T.
 
 It is recommended to set unaffected parts to `ps-t69 = null`
 
@@ -39,6 +47,7 @@ ps-t1 = ResourceHeadDiffuse
 ps-t2 = ResourceHeadLightMap
 ps-t69 = ResourceTexFxMap
 run = CommandList\TexFx\T.1
+;run = CommandList\TexFx\SetIV
 ;   \Transparency.0 (2.9-) Part has no Normal Map
 ;   \Transparency.1 (3.0+) Part has a Normal Map
 ;
@@ -50,10 +59,8 @@ run = CommandList\TexFx\T.1
 #### TexFx Custom Outlines (t70):
 > Thanks to Annplan for Sponsoring this feature!
 
-The RGB channels will be directly assigned to the outline color if there is a texture in ps-t70. Applicable to Characters, Weapons, NPCs, Monsters and More! 
-
-> [!TIP]
-> This will not likely work with parts which are using transparency. There is a work around, but that can wait.
+The RGB channels will be directly assigned to the outline color if there is a texture in ps-t70. Applicable to Characters, Weapons, NPCs, Monsters and More!
+Alpha below 50% will discard the outlines.
 
 ```ini
 [TextureOverrideFavoniusGreatsword]
@@ -65,35 +72,53 @@ ps-t70 = ResourceFaveSwordOutline
 filename = FaveSwordOutline.dds
 ```
 
-
 ```ini
 ; Notable TexFx Words and Aliases.
+
+; TexFx CommandLists for Default Transparency.
 run = CommandList\TexFx\T
 run = CommandList\TexFx\T.0
 run = CommandList\TexFx\Transparency
 run = CommandList\TexFx\Transparency.0
-
+;-slot 0 normal maps
 run = CommandList\TexFx\T.1
 run = CommandList\TexFx\Transparency.1
 
+; TexFx CommandLists for Default Component based Transparency.
 run = CommandList\TexFx\C
 run = CommandList\TexFx\C.0
 run = CommandList\TexFx\Component
 run = CommandList\TexFx\Component.0
-
+;-slot 0 normal maps
 run = CommandList\TexFx\C.1
 run = CommandList\TexFx\Component.1
 
+; Disable the built in "Hull Hack" which ignores vertex colors which offsets transparency.
 run = CommandList\TexFx\Shh
 run = CommandList\TexFx\SupHH
 run = CommandList\TexFx\SupressHullHack
 
-run = CommandList\TexFx\RR
-run = CommandList\TexFx\ResetResources
+; Force Outline for Transparent parts on/off
+run = CommandList\TexFx\FO.E
+run = CommandList\TexFx\FO.Enable
+run = CommandList\TexFx\ForceOutline.Enable
+run = CommandList\TexFx\FO.D
+run = CommandList\TexFx\FO.Disable
+run = CommandList\TexFx\ForceOutline.Disable
+
+; Use when setting the hsv or glow/bloom if using \T
+run = CommandList\TexFx\SetIV
 
 ; To multiply your Green and Blue Channels
+; note, the 2nd options are shorthands.
 $\TexFx\bloom_intesity
+$\TexFx\bloom
 $\TexFx\glow_intesity
+$\TexFx\glow
+; TexFx Alpha Channel, Variable Color Replace.
+$\TexFx\hue
+$\TexFx\sat
+$\TexFx\val
 ; TexFx version number
 $\TexFx\version
 ; Draw Indexed Carriers for Components
@@ -157,6 +182,10 @@ Just try changing which version of the command you're using.
 > [!WARNING]
 > Severe: SilentNightSounds [Remove Transparency Filter](https://gamebanana.com/mods/406659)
 > This will likely cause transparent parts to be drawn over the original, resulting in no transparency and a slight glow.
+
+#### Recommended
+[ORFix](https://github.com/leotorrez/LeoTools/blob/main/releases/ORFix.ini)
+[Underwater Uncensor](https://gamebanana.com/mods/462790)
 
 ### Extensions
 Extensions are add-on type mods that are intended to be used with TexFx Main, but will not guarantee compatibility between versions. For example, I already regret the name of the first extension, because the numbers are backwards for the name. The exensions folder `denn_die_todten_reiten_schnell` may be renamed in the near future as well.
