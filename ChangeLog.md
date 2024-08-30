@@ -113,7 +113,7 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 ## Refactoring
 - Adjusted how some values are handled internally.
 - Moved user configurable values to the top of the Main.ini (hopefully this makes it easier to edit without keybindings).
-- Users now need to call `CommandList\TexFx\SetIV` to use the custom RGB and Glow Values.
 
-# Version 1.051 (Planned)
-Shadow Shading and a default UV Animation that doesn't suck.
+# Version 1.051
+## Hotfix
+- Added Math\cos as a local function.
