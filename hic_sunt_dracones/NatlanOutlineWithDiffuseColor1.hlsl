@@ -153,9 +153,9 @@ void main(
  
 //End Modesty
   float2 dims;
-  t69.GetDimensions(dims.x, dims.y);
-  mask.xyzw = t69.Load(uint3(++dims.xy*frac(v2.xy*0.99999),0)).xyzw;
-  //mask.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
+  // t69.GetDimensions(dims.x, dims.y);
+  // mask.xyzw = t69.Load(uint3(++dims.xy*frac(v5.xy*0.99999),0)).xyzw;
+  mask.xyzw = t69.Sample(s12_s, v2.xy).xyzw;
   //if(mask.y == 0){
     if(mask.x == 0.0) discard;
     if(mask.x == 1.0) discard;
