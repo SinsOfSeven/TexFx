@@ -117,3 +117,15 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 # Version 1.051
 ## Hotfix
 - Added Math\cos as a local function.
+- Reverted Outline Mode to OFF by Default
+- Enabled Lighting Effects by Default
+
+## Version 1.05104
+### Fixes
+- Fixed AMD Crashing
+- Fixed Natlan Transparency
+- Fixed ORFix Sync Issues (update ORFix plox)
+- Changed Default Keybinding to F7 + Modifiers
+
+## TODO!!!
+Patch Custom Transparency Shaders to do the modified Censorships
