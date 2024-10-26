@@ -86,6 +86,16 @@ run = CommandList\TexFx\Transparency.0
 ;-slot 0 normal maps
 run = CommandList\TexFx\T.1
 run = CommandList\TexFx\Transparency.1
+; Natlan versions of above.
+run = CommandList\TexFx\TN.0
+run = CommandList\TexFx\TNat.0
+run = CommandList\TexFx\TransparencyNatlan.0
+run = CommandList\TexFx\TN
+run = CommandList\TexFx\TN.1
+run = CommandList\TexFx\TNat
+run = CommandList\TexFx\TNat.1
+run = CommandList\TexFx\TransparencyNatlan
+run = CommandList\TexFx\TransparencyNatlan.1
 
 ; TexFx CommandLists for Default Component based Transparency.
 run = CommandList\TexFx\C
@@ -95,6 +105,17 @@ run = CommandList\TexFx\Component.0
 ;-slot 0 normal maps
 run = CommandList\TexFx\C.1
 run = CommandList\TexFx\Component.1
+;-Natlan Characters
+run = CommandList\TexFx\CN
+run = CommandList\TexFx\CN.1
+run = CommandList\TexFx\CNat
+run = CommandList\TexFx\CNat.1
+run = CommandList\TexFx\ComponentNatlan
+run = CommandList\TexFx\ComponentNatlan.1
+; Natlan Parts without Normal Maps, not sure if needed.
+run = CommandList\TexFx\CN.0
+run = CommandList\TexFx\CNat.0
+run = CommandList\TexFx\ComponentNatlan.0
 
 ; Disable the built in "Hull Hack" which ignores vertex colors which offsets transparency.
 run = CommandList\TexFx\Shh
@@ -108,9 +129,6 @@ run = CommandList\TexFx\ForceOutline.Enable
 run = CommandList\TexFx\FO.D
 run = CommandList\TexFx\FO.Disable
 run = CommandList\TexFx\ForceOutline.Disable
-
-; Use when setting the hsv or glow/bloom if using \T
-run = CommandList\TexFx\SetIV
 
 ; To multiply your Green and Blue Channels
 ; note, the 2nd options are shorthands.

@@ -119,9 +119,14 @@ void main(
   r0 = float4(0,0,0,0);
   r1 = float4(0,0,0,0);
 //Re-enable Modesty
-  r0.x = -(0 != cb0[98].y);
+  r0.x = -(0 != cb0[102].y);
   if (r0.x != 0) {
-    r0.x = -(cb0[98].z < 0.949999988);
+    if (uncensor == 2){
+      r0.x = -(cb0[102].z < 0.1);
+    }else{
+      r0.x = -(cb0[102].z < 0.949999988);
+    }
+    
     if (r0.x != 0) {
       r0.xy = v3.yx / v3.ww;
       r0.xy = cb1[7].yx * r0.xy;
@@ -136,10 +141,10 @@ void main(
       r1.z = dot(cb0[19].xyzw, icb[r0.y+0].xyzw);
       r1.w = dot(cb0[20].xyzw, icb[r0.y+0].xyzw);
       r0.x = dot(r1.xyzw, icb[r0.x+0].xyzw);
-      r0.x = cb0[98].z * 17 + -r0.x;
+      r0.x = cb0[102].z * 17 + -r0.x;
       r0.x = -0.00999999978 + r0.x;
       r0.x = -(r0.x < 0);
-      if (uncensor == 0.0){
+      if (uncensor != 0.0){
         if (r0.x != 0) discard;
       }
     }

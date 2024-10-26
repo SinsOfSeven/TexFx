@@ -126,7 +126,11 @@ void main(
   if (r0.x != 0) discard;
   r0.x = -(0 != cb0[41].y);
   if (r0.x != 0) {
-    r0.x = -(cb0[41].z < 0.949999988);
+    if (uncensor == 2){
+      r0.x = -(cb0[41].z < 0.1);
+    }else{
+      r0.x = -(cb0[41].z < 0.949999988);
+    }
     if (r0.x != 0) {
       r0.xy = v4.yx / v4.ww;
       r0.xy = cb1[7].yx * r0.xy;
@@ -144,7 +148,7 @@ void main(
       r0.x = cb0[41].z * 17 + -r0.x;
       r0.x = -0.00999999978 + r0.x;
       r0.x = -(r0.x < 0);
-      if (uncensor == 0.0){
+      if (uncensor != 0.0){
         if (r0.x != 0) discard;
       }
     }
