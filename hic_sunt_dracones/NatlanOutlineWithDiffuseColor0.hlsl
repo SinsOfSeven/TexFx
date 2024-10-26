@@ -47,7 +47,7 @@ cbuffer cb1 : register(b1)
 
 cbuffer cb0 : register(b0)
 {
-  float4 cb0[125];
+  float4 cb0[170];
 }
 
 
@@ -97,8 +97,9 @@ void main(
   float4 v6 : TEXCOORD5,
   float4 v7 : TEXCOORD6,
   float4 v8 : TEXCOORD7,
-  float4 v9 : TEXCOORD8,
-  uint v10 : SV_IsFrontFace0,
+  float4 v9 : TEXCOORD11,
+  float4 v10 : TEXCOORD12,
+  uint v11 : SV_IsFrontFace0,
   out float4 o0 : SV_Target0,
   out float4 o1 : SV_Target1,
   out float4 o2 : SV_Target2,
@@ -118,6 +119,10 @@ void main(
 
   r0 = float4(0,0,0,0);
   r1 = float4(0,0,0,0);
+  r0.x = -((int)v11.x == 0);
+  r0.y = r0.y ? r0.x : 0;
+  r0.yz = r0.yy ? v6.zw : v6.xy;
+  float2 texc = float2(r0.yz);
 //Re-enable Modesty
   r0.x = -(0 != cb0[102].y);
   if (r0.x != 0) {
@@ -149,7 +154,6 @@ void main(
       }
     }
   }
-  float2 texc = v6.xy + cb0[101].zw;
   r1.xyzw = t0.Sample(s0_s, texc).xyzw;
   r0.z = -(cb0[96].x == 1.000000);
   r0.w = -cb0[96].y + r1.w;
@@ -221,7 +225,7 @@ void main(
   r3.y = mask.y > 0 ? mask.y * intensity.y : 0.223606795;
   r3.z = mask.z > 0 ? mask.z * intensity.z : 0.223606795;
   r3.yz = float2(max(ren1.w,r3.y),max(ren4.x,r3.z));
-  o0.xyz = r1.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
+  o0.xyz = v2.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
   o0.w = r5.x ? 0.333000 : 0;
   o1.xyz = r2.xyz;
   o1.w = r3.y;

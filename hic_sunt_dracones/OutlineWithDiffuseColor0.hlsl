@@ -116,7 +116,14 @@ void main(
   ren1,ren2,ren3,ren4,
   region,
   mask,diffuse,lightmap,normalmap;
+  float2 texco = float2(0,0);
 
+  r0 = float4(0,0,0,0);
+  r1 = float4(0,0,0,0);
+  r0.x = -((int)v7.x == 0);
+  r0.y = r0.y ? r0.x : 0;
+  r0.yz = r0.yy ? v2.zw : v2.xy;
+  texco = r0.yz;
 //Re-enable Modesty
   r1.xyz = v7.xxx ? v3.xyz : -v3.xyz;
   r0.x = -(0 != cb0[36].y);
@@ -153,7 +160,7 @@ void main(
       }
     }
   }
-  r0.x = t0.Sample(s0_s, v2.xy).w;
+  r0.x = t0.Sample(s0_s, texco).w;
   r0.y = -(cb0[39].x == 1.000000);
   r0.x = -cb0[39].y + r0.x;
   r0.x = -(r0.x < 0);
@@ -162,8 +169,8 @@ void main(
 //End Modesty
   float2 dims;
   t69.GetDimensions(dims.x, dims.y);
-  mask.xyzw = t69.Load(uint3(++dims.xy*frac(v2.xy*0.99999),0)).xyzw;
-  //mask.xyzw = t69.Sample(s0_s, v2.xy).xyzw;
+  mask.xyzw = t69.Load(uint3(++dims.xy*frac(texco*0.99999),0)).xyzw;
+  //mask.xyzw = t69.Sample(s0_s, texco).xyzw;
   //if(mask.y == 0){
     if(mask.x == 0.0) discard;
     if(mask.x == 1.0) discard; 
@@ -174,8 +181,8 @@ void main(
   ren2.xyzw = t72.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // ren3.xyzw = t73.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   ren4.xyzw = t74.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xxxx;
-  diffuse.xyzw = t0.Sample(s0_s, v2.xy).xyzw;
-  lightmap.xyzw = t1.Sample(s1_s, v2.xy).xyzw;
+  diffuse.xyzw = t0.Sample(s0_s, texco).xyzw;
+  lightmap.xyzw = t1.Sample(s1_s, texco).xyzw;
 
   ren1 = ren1 + ren2 * 0.25;
   ren1 = clamp(ren1,0,1);
@@ -184,7 +191,7 @@ void main(
   r0 = float4(0,0,0,0);
   r3 = float4(0,0,0,0); r4 = float4(0,0,0,0); r5 = float4(0,0,0,0); r6 = float4(0,0,0,0);
   r0.x = -1 + 0.5;
-  r4.xyzw = t1.SampleBias(s1_s, v2.xy, r0.x).xyzw;
+  r4.xyzw = t1.SampleBias(s1_s, texco, r0.x).xyzw;
   r3.xy = float2(0,0);
   r0.x = 0;
   r5.xyzw = -(r4.wwww >= float4(0.800000012,0.400000006,0.200000003,0.600000024));

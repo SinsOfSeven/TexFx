@@ -116,7 +116,14 @@ void main(
   ren1,ren2,ren3,ren4,
   region,
   mask,diffuse,lightmap,normalmap;
-  
+  float2 texco = float2(0,0);
+
+  r0 = float4(0,0,0,0);
+  r1 = float4(0,0,0,0);
+  r0.x = -((int)v7.x == 0);
+  r0.y = r0.y ? r0.x : 0;
+  r0.yz = r0.yy ? v2.zw : v2.xy;
+  texco = r0.yz;
 //Re-enable Modesty
   r1.xyz = v7.xxx ? v3.xyz : -v3.xyz;
   r0.x = -(0 != cb0[36].y);
@@ -153,7 +160,7 @@ void main(
       }
     }
   }
-  r0.x = t0.Sample(s0_s, v2.xy).w;
+  r0.x = t1.Sample(s0_s, v2.xy).w;
   r0.y = -(cb0[39].x == 1.000000);
   r0.x = -cb0[39].y + r0.x;
   r0.x = -(r0.x < 0);

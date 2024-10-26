@@ -127,7 +127,4 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - Fixed ORFix Sync Issues (update ORFix plox)
 - Changed Default Keybinding to F7 + Modifiers
 - Added commandlists for natlan version of all the texfx commands.
-
-## TODO!!!
-~~Patch Custom Transparency Shaders to do the modified Censorships~~
-Add Backface UV support
+- Added Backface UV support
