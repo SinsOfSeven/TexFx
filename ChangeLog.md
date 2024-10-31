@@ -130,5 +130,13 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - Added Backface UV support
 - Added new Uncensor Mode, changed it to default.
 
-# TODO
-- Fix the unfinish Bloom Transfer
+## Version 1.05108
+### Hotfix
+- Rolled back glow through transparency effect till 1.052.
+- Removed Hull Hack from Natlan Shaders (Unneeded and broken.)
+
+### Updates
+- Updated documentation for accuracy.
+
+# TODO (1.052)
+- Fix the unfinish Glow/Bloom Transfer (glow through transparency)
