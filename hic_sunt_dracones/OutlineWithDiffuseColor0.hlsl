@@ -229,7 +229,7 @@ void main(
   }
   r3.y = mask.y > 0 ? mask.y * intensity.y : 0.223606795;
   r3.z = mask.z > 0 ? mask.z * intensity.z : 0.223606795;
-  r3.yz = float2(max(ren1.w,r3.y),max(ren4.x,r3.z));
+  //r3.yz = float2(max(ren1.w,r3.y),max(ren4.x,r3.z));
   o0.xyz = r1.xyz * float3(0.5,0.5,0.5) + float3(0.5,0.5,0.5);
   o0.w = r5.x ? 0.333000 : 0;
   o1.xyz = r2.xyz;

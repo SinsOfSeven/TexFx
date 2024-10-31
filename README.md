@@ -5,14 +5,32 @@
 
 [GameBanana Link](https://gamebanana.com/mods/485763)
 
-### NOTICE
-Currently, Natlan characters do not fully support transparency, this will be fixed soon.
-
 ### Usage Notes
 TexFx textures encode effects in the ps-t69 and ps-t70 slot.
 
 #### Config.ini
-Inside the TexFx folder, there is a config.ini change some major settings which can impact some mods. The `$seizure` setting can be set to 1 or 0 to prevent mods which might have flashing or strobing effects with RGB. Please make sure to review this setting if you do or don't want it. It is set to `0` off by default.
+Inside the TexFx folder, there is a config.ini change some major settings which can impact some mods. 
+
+The `$uncensor` setting can be set to `0/1/2` where `0` enables the "Remove Transparency Filter" effect, disabling the Mosaic Censor entirely, `1`, which will behave as the game originally did, and `2` which will disable the Censor till the camera enters the body. `2` is the default, for the best gameplay experience. (Planned, Add a UI toggle or Enabled Keybinding for this option.) This default is subject to change.
+
+The `$seizure` setting can be set to 1 or 0 to prevent mods which might have flashing or strobing effects with RGB. Please make sure to review this setting if you do or don't want it. It is set to `1` on by default. (Genshin Already warns Photosensitive users).
+
+#### TexFx Custom Outlines (t70):
+> Thanks to Annplan for Sponsoring this feature!
+
+The RGB channels will be directly assigned to the outline color if there is a texture in ps-t70. Applicable to Characters, Weapons, NPCs, Monsters and More!
+Alpha below 50% will discard the outlines.
+
+```ini
+[TextureOverrideFavoniusGreatsword]
+hash = 945cd6d3
+match_priority = 0
+ps-t70 = ResourceFaveSwordOutline
+
+[ResourceFaveSwordOutline]
+filename = FaveSwordOutline.dds
+```
+
 
 #### TexFx Effects Mask (t69):
 
@@ -35,10 +53,6 @@ Alpha   | 1-63  | Variable Color Replace
 
 `$\TexFx\glow_intesity` and `$\TexFx\bloom_intesity` may be used to change the intesity of Green and Blue, or `$\TexFx\hue`, `$\TexFx\sat`, `$\TexFx\val` of the Alpha lower segment.
 
-**run = CommandList\TexFx\SetIV** now required for effects for \T.
-
-It is recommended to set unaffected parts to `ps-t69 = null`
-
 ```ini
 ; Example:
 [TextureOverrideHead]
@@ -50,33 +64,54 @@ ps-t1 = ResourceHeadDiffuse
 ps-t2 = ResourceHeadLightMap
 ps-t69 = ResourceTexFxMap
 run = CommandList\TexFx\T.1
-;run = CommandList\TexFx\SetIV
 ;   \Transparency.0 (2.9-) Part has no Normal Map
 ;   \Transparency.1 (3.0+) Part has a Normal Map
 ;
 ;   -- Version 1.04, shorthand Aliases are prefered. --
 ;   commandlist\texfx\T.0
 ;   commandlist\texfx\T.1
+;   CommandList\TexFx\TransparencyNatlan
+;   CommandList\TexFx\TN
 ```
 
-#### TexFx Custom Outlines (t70):
-> Thanks to Annplan for Sponsoring this feature!
+#### TexFx for Components (OutfitCompiler/XXMI Exports)
+`hic_sunt_dracones/ComponentFriendlyBuiltinShaders.ini`
+This introduces some new concepts that allow us to use TexFx in a new and exciting way, we can use it to create "Materials" or "Sub Parts" like a pair of sunglasses which which can have thier own draw passes! We can create other custom shaders and effects, but for now I've included two default ones which use normal TexFx behavior.
 
-The RGB channels will be directly assigned to the outline color if there is a texture in ps-t70. Applicable to Characters, Weapons, NPCs, Monsters and More!
-Alpha below 50% will discard the outlines.
+The syntax is verbose, but it's a price we must pay for power.
 
 ```ini
-[TextureOverrideFavoniusGreatsword]
-hash = 945cd6d3
-match_priority = 0
-ps-t70 = ResourceFaveSwordOutline
-
-[ResourceFaveSwordOutline]
-filename = FaveSwordOutline.dds
+; Use Example
+if $Hood == 1
+    ps-t0 = ResourceDiffuse
+    ps-t1 = ResoourceLightmap
+    ps-t69 = ResourceTexFxMask
+    $\TexFx\_1 = <DRAWINDEX>
+    $\TexFx\_2 = <DRAWOFFSET>
+    run = CommandList\TexFx\Component.1
+    ;run = CommandList\TexFx\C
+    ;run = CommandList\TexFx\ComponentNatlan
+endif
 ```
 
 ```ini
 ; Notable TexFx Words and Aliases.
+
+; To multiply your Green and Blue Channels
+; note, the 2nd options are shorthands.
+$\TexFx\bloom_intesity
+$\TexFx\bloom
+$\TexFx\glow_intesity
+$\TexFx\glow
+; TexFx Alpha Channel, Variable Color Replace.
+$\TexFx\hue
+$\TexFx\sat
+$\TexFx\val
+; TexFx version number
+$\TexFx\version
+; Draw Indexed Carriers for Components
+$\TexFx\_1
+$\TexFx\_2
 
 ; TexFx CommandLists for Default Transparency.
 run = CommandList\TexFx\T
@@ -129,67 +164,30 @@ run = CommandList\TexFx\ForceOutline.Enable
 run = CommandList\TexFx\FO.D
 run = CommandList\TexFx\FO.Disable
 run = CommandList\TexFx\ForceOutline.Disable
-
-; To multiply your Green and Blue Channels
-; note, the 2nd options are shorthands.
-$\TexFx\bloom_intesity
-$\TexFx\bloom
-$\TexFx\glow_intesity
-$\TexFx\glow
-; TexFx Alpha Channel, Variable Color Replace.
-$\TexFx\hue
-$\TexFx\sat
-$\TexFx\val
-; TexFx version number
-$\TexFx\version
-; Draw Indexed Carriers for Components
-$\TexFx\_1
-$\TexFx\_2
 ```
 
 #### Keybindings
-Rename `DISABLED_Keybindings.ini`, it is disabled by default to preserve your custom keybindings between updates.
+Rename `DISABLED_Keybindings.ini`, it is disabled by default to preserve your custom keybindings between updates. If you're using XXMI, you will also need to edit the `DISABLED_Includes.ini` but don't remove the `DISABLED` word, just uncomment the the lines for `Keybindings.ini`
 
 #### Censorship Patch
 TexFx conflicts with Silent's ShaderFixes mod, so it includes it's own version.
-Press `|` (pipe key) To toggle the censorship patch (Remove Transparency Filter)
+Press `CTRL+F7` To toggle the censorship patch (Remove Transparency Filter)
 
 #### Hull Hack (Vertex Color Fix)
-Hold `|+Shift`to preview the HullHack Effect (Enabled->Disable while holding).
+Hold `F7+Shift`to preview the HullHack Effect (Enabled->Disable while holding).
 If you prefer the old way, you can add **one** of these commands to your mod. (Alliases)
 `run = CommandList\TexFx\SupressHullHack`
 `run = commandlist\texfx\suphh`
 `$\texfx\hull_hack = 0`
-
-#### TexFx for Components (OutfitCompiler)
-`hic_sunt_dracones/ComponentFriendlyBuiltinShaders.ini`
-This introduces some new concepts that allow us to use TexFx in a new and exciting way, we can use it to create "Materials" or "Sub Parts" like a pair of sunglasses which which can have thier own draw passes! We can create other custom shaders and effects, but for now I've included two default ones which use normal TexFx behavior.
-
-The syntax is verbose, but it's a price we must pay for power.
-
-I recommend using the `.0` version even for 3.0+ characters so it is compatable with ORFix, due to a technical limit, it would be too hard to hard to fix it like `\Transparency.1`
-```ini
-; Use Example
-if $Hood == 1
-    ps-t0 = ResourceDiffuse
-    ps-t1 = ResoourceLightmap
-    ps-t69 = ResourceTexFxMask
-    $\texfx\glow_intensity = $VAR1
-    $\texfx\bloom_intensity = $VAR2
-    $\TexFx\_1 = <DRAWINDEX>
-    $\TexFx\_2 = <DRAWOFFSET>
-    run = CommandList\TexFx\Component.0
-endif
-```
 
 ### Troubleshooting
 
 #### If you're having problems with Shader Mods:
 Try setting the remaining body parts like this `ps-t69 = null`. You do not need to call the commands, texfx is suppose to do this automatically, but it isn't always able to do it properly, and this can help prevent unexpected behaviors, even with unrelated mods. In 4.5 there is a known issue with some mods in the some menus which can be fixed with this.
 
-The `[Rendering]` setting `cache_shaders` from the `d3dx_overrides.ini` can sometimes prevent shaders from properly reloading. It will drop your FPS drop some when you first visit new areas after installing or updating the mod.
+**Removed** ~~The `[Rendering]` setting `cache_shaders` from the `d3dx_overrides.ini` can sometimes prevent shaders from properly reloading. It will drop your FPS drop some when you first visit new areas after installing or updating the mod.~~
 
-You may also clear your ShaderFixes folder of unwanted shaders. If experienceing issues, you can rename this folder and reload to see if it replairs the issue. In which case you may investigate further.
+~~You may also clear your ShaderFixes folder of unwanted shaders. If experienceing issues, you can rename this folder and reload to see if it replairs the issue. In which case you may investigate further.~~
 
 #### If this mod crashes your game:
 Please share with me as many details as possible, like what GPU you have, and if you're using the latest GitHub or GameBanana version.

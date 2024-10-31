@@ -128,3 +128,7 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 - Changed Default Keybinding to F7 + Modifiers
 - Added commandlists for natlan version of all the texfx commands.
 - Added Backface UV support
+- Added new Uncensor Mode, changed it to default.
+
+# TODO
+- Fix the unfinish Bloom Transfer
