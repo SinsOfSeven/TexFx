@@ -138,5 +138,9 @@ This version is some extra polish ontop of `1.02`. It fixes so small issues, and
 ### Updates
 - Updated documentation for accuracy.
 
+## Version 1.05109
+### Fix
+Broken Outlines
+
 # TODO (1.052)
 - Fix the unfinish Glow/Bloom Transfer (glow through transparency)
