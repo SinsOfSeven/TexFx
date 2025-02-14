@@ -120,38 +120,37 @@ void main(
   r1 = float4(0,0,0,0);
   r0.x = -((int)v7.x == 0);
   r0.y = r0.y ? r0.x : 0;
-  r0.yz = r0.yy ? v2.zw : v2.xy;
-  texco = v6.xy;
+  texco = !r0.yy ? v6.xy : v6.zw;
 //Re-enable Modesty
-  r0.x = -(0 != cb0[133].y);
-  if (r0.x != 0) {
-    if (uncensor == 2){
-      r0.x = -(cb0[133].z < 0.1);
-    }else{
-      r0.x = -(cb0[133].z < 0.949999988);
-    }
-    if (r0.x != 0) {
-      r0.xy = v3.yx / v3.ww;
-      r0.xy = cb1[7].yx * r0.xy;
-      r0.xy = float2(0.25,0.25) * r0.xy;
-      r0.zw = -(r0.xy >= -r0.xy);
-      r0.xy = frac(abs(r0.xy));
-      r0.xy = r0.zw ? r0.xy : -r0.xy;
-      r0.xy = float2(4,4) * r0.xy;
-      r0.xy = (uint2)r0.xy;
-      r1.x = dot(cb0[17].xyzw, icb[r0.y+0].xyzw);
-      r1.y = dot(cb0[18].xyzw, icb[r0.y+0].xyzw);
-      r1.z = dot(cb0[19].xyzw, icb[r0.y+0].xyzw);
-      r1.w = dot(cb0[20].xyzw, icb[r0.y+0].xyzw);
-      r0.x = dot(r1.xyzw, icb[r0.x+0].xyzw);
-      r0.x = cb0[133].z * 17 + -r0.x;
-      r0.x = -0.00999999978 + r0.x;
-      r0.x = -(r0.x < 0);
-      if (uncensor != 0.0){
-        if (r0.x != 0) discard;
-      }
-    }
-  }
+  // r0.x = -(0 != cb0[133].y);
+  // if (r0.x != 0) {
+  //   if (uncensor == 2){
+  //     r0.x = -(cb0[133].z < 0.1);
+  //   }else{
+  //     r0.x = -(cb0[133].z < 0.949999988);
+  //   }
+  //   if (r0.x != 0) {
+  //     r0.xy = v3.yx / v3.ww;
+  //     r0.xy = cb1[7].yx * r0.xy;
+  //     r0.xy = float2(0.25,0.25) * r0.xy;
+  //     r0.zw = -(r0.xy >= -r0.xy);
+  //     r0.xy = frac(abs(r0.xy));
+  //     r0.xy = r0.zw ? r0.xy : -r0.xy;
+  //     r0.xy = float2(4,4) * r0.xy;
+  //     r0.xy = (uint2)r0.xy;
+  //     r1.x = dot(cb0[17].xyzw, icb[r0.y+0].xyzw);
+  //     r1.y = dot(cb0[18].xyzw, icb[r0.y+0].xyzw);
+  //     r1.z = dot(cb0[19].xyzw, icb[r0.y+0].xyzw);
+  //     r1.w = dot(cb0[20].xyzw, icb[r0.y+0].xyzw);
+  //     r0.x = dot(r1.xyzw, icb[r0.x+0].xyzw);
+  //     r0.x = cb0[133].z * 17 + -r0.x;
+  //     r0.x = -0.00999999978 + r0.x;
+  //     r0.x = -(r0.x < 0);
+  //     if (uncensor != 0.0){
+  //       if (r0.x != 0) discard;
+  //     }
+  //   }
+  // }
 //End Modesty
   float2 dims;
   //t69.GetDimensions(dims.x, dims.y);
