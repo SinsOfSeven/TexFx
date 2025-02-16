@@ -144,3 +144,15 @@ Broken Outlines
 
 # TODO (1.052)
 - Fix the unfinish Glow/Bloom Transfer (glow through transparency)
+
+## Version 1.054
+### Fixes
+- Repaired Existing Features
+- Could not repair censorship correctly
+- Now defaults to uncensored until a solution is made.
+- Natlan characters seem to be functional, didn't test all cases.
+
+### Known issues
+- Some transparencies will not work properly as the characters load in.
+- This also affects custom outline colors, will look for a solution. (LOD Shaders)
+- Intel Integrated graphics glow effects are still malfunctioning, will look into it.

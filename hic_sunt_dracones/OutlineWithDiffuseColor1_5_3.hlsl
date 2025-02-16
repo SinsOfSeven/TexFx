@@ -21,11 +21,10 @@ Texture2D<float4> t72 : register(t72);
 Texture2D<float4> t71 : register(t71);
 Texture2D<float4> t69 : register(t69);
 
-SamplerState s15_s {
-    Filter = MIN_MAG_MIP_LINEAR;
-    AddressU = wrap;
-    AddressV = wrap;
-};
+SamplerState s15_s : register(s15);
+SamplerState s14_s : register(s14);
+SamplerState s13_s : register(s13);
+SamplerState s12_s : register(s12);
 
 //
 
@@ -41,14 +40,19 @@ SamplerState s1_s : register(s1);
 
 SamplerState s0_s : register(s0);
 
+cbuffer cb2 : register(b2)
+{
+  float4 cb2[17];
+}
+
 cbuffer cb1 : register(b1)
 {
-  float4 cb1[8];
+  float4 cb1[10];
 }
 
 cbuffer cb0 : register(b0)
 {
-  float4 cb0[160];
+  float4 cb0[90];
 }
 
 // #MARK: --- HSV CODE ---
@@ -74,8 +78,8 @@ float3 hsv2rgb(float3 c)
 float3 adjust_hue(float3 HSV, float3 offset)
 {
 	if(HSV.x>=0.266f) HSV.x = fmod(HSV.x + offset.x, 1);
-  HSV.y += offset.y;
-  HSV.z += offset.z;
+  HSV.y *= offset.y;
+  HSV.z *= offset.z;
 	return HSV;
 }
 
@@ -92,13 +96,10 @@ void main(
   float4 v1 : COLOR0,
   float4 v2 : TEXCOORD0,
   float4 v3 : TEXCOORD1,
-  float4 v4 : TEXCOORD3,
-  float4 v5 : TEXCOORD4,
-  float4 v6 : TEXCOORD5,
-  float4 v7 : TEXCOORD6,
-  float4 v8 : TEXCOORD7,
-  float4 v9 : TEXCOORD8,
-  uint frontfacing : SV_IsFrontFace0,
+  float4 v4 : TEXCOORD2,
+  float4 v5 : TEXCOORD3,
+  float2 v6 : TEXCOORD4,
+  uint v7 : SV_IsFrontFace0,
   out float4 o0 : SV_Target0,
   out float4 o1 : SV_Target1,
   out float4 o2 : SV_Target2,
@@ -119,65 +120,82 @@ void main(
 
   r0 = float4(0,0,0,0);
   r1 = float4(0,0,0,0);
-  r0.x = -((int)frontfacing.x == 0);
+  r0.x = -((int)v7.x == 0);
   r0.y = r0.y ? r0.x : 0;
-  texco = !r0.yy ? v6.xy : v6.zw;
-  //if (frontfacing) discard;
+  r0.yz = r0.yy ? v2.zw : v2.xy;
+  texco = r0.yz;
 //Re-enable Modesty
-  // r0.x = -(0 != cb0[133].y);
-  // if (r0.x != 0) {
-  //   if (uncensor == 2){
-  //     r0.x = -(cb0[133].z < 0.1);
-  //   }else{
-  //     r0.x = -(cb0[133].z < 0.949999988);
-  //   }
-  //   if (r0.x != 0) {
-  //     r0.xy = v3.yx / v3.ww;
-  //     r0.xy = cb1[7].yx * r0.xy;
-  //     r0.xy = float2(0.25,0.25) * r0.xy;
-  //     r0.zw = -(r0.xy >= -r0.xy);
-  //     r0.xy = frac(abs(r0.xy));
-  //     r0.xy = r0.zw ? r0.xy : -r0.xy;
-  //     r0.xy = float2(4,4) * r0.xy;
-  //     r0.xy = (uint2)r0.xy;
-  //     r1.x = dot(cb0[17].xyzw, icb[r0.y+0].xyzw);
-  //     r1.y = dot(cb0[18].xyzw, icb[r0.y+0].xyzw);
-  //     r1.z = dot(cb0[19].xyzw, icb[r0.y+0].xyzw);
-  //     r1.w = dot(cb0[20].xyzw, icb[r0.y+0].xyzw);
-  //     r0.x = dot(r1.xyzw, icb[r0.x+0].xyzw);
-  //     r0.x = cb0[133].z * 17 + -r0.x;
-  //     r0.x = -0.00999999978 + r0.x;
-  //     r0.x = -(r0.x < 0);
-  //     if (uncensor != 0.0){
-  //       if (r0.x != 0) discard;
-  //     }
-  //   }
-  // }
+  r1.xyz = v7.xxx ? v3.xyz : -v3.xyz;
+  r0.x = -(0 != cb0[36].y);
+  r0.y = -0.00999999978 + v1.w;
+  r0.y = -(r0.y < 0);
+  r0.x = r0.x ? r0.y : 0;
+  if (r0.x != 0) discard;
+  r0.x = -(0 != cb0[41].y);
+  if (r0.x != 0) {
+    if (uncensor == 2){
+      r0.x = -(cb0[41].z < 0.1);
+    }else{
+      r0.x = -(cb0[41].z < 0.949999988);
+    }
+    if (r0.x != 0) {
+      r0.xy = v4.yx / v4.ww;
+      r0.xy = cb1[7].yx * r0.xy;
+      r0.xy = float2(0.25,0.25) * r0.xy;
+      r0.zw = -(r0.xy >= -r0.xy);
+      r0.xy = frac(abs(r0.xy));
+      r0.xy = r0.zw ? r0.xy : -r0.xy;
+      r0.xy = float2(4,4) * r0.xy;
+      r0.xy = (uint2)r0.xy;
+      r1.x = dot(cb0[17].xyzw, icb[r0.y+0].xyzw);
+      r1.y = dot(cb0[18].xyzw, icb[r0.y+0].xyzw);
+      r1.z = dot(cb0[19].xyzw, icb[r0.y+0].xyzw);
+      r1.w = dot(cb0[20].xyzw, icb[r0.y+0].xyzw);
+      r0.x = dot(r1.xyzw, icb[r0.x+0].xyzw);
+      r0.x = cb0[41].z * 17 + -r0.x;
+      r0.x = -0.00999999978 + r0.x;
+      r0.x = -(r0.x < 0);
+      if (uncensor != 0.0){
+        if (r0.x != 0) discard;
+      }
+    }
+  }
+  r0.x = t1.Sample(s0_s, v2.xy, int2(1,1)).w;
+  r0.y = -(cb0[39].x == 1.000000);
+  r0.x = -cb0[39].y + r0.x;
+  r0.x = -(r0.x < 0);
+  r0.x = r0.y ? r0.x : 0;
+  if (r0.x != 0) discard;
 //End Modesty
   float2 dims;
   //t69.GetDimensions(dims.x, dims.y);
-  //mask.xyzw = t69.Load(uint3(++dims.xy*frac(texco*0.99999),0)).xyzw;
-  mask.xyzw = t69.Sample(s15_s, texco).xyzw;
+  //mask.xyzw = t69.Load(uint3(++dims.xy*frac(v2.xy*0.99999),0)).xyzw;
+  mask.xyzw = t69.Sample(s0_s, v2.xy, int2(1,1)).xyzw;
   //if(mask.y == 0){
     if(mask.x == 0.0) discard;
-    if(mask.x == 1.0) discard; 
-    
+    if(mask.x == 1.0) discard;
   //}
 
   ren1.xyzw = t71.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   ren2.xyzw = t72.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
   // ren3.xyzw = t73.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
-  ren4.xyzw = t74.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xxxx;
-  diffuse.xyzw = t0.Sample(s15_s, texco).xyzw;
-  lightmap.xyzw = t1.Sample(s15_s, texco).xyzw;
+  ren4.xyzw = t74.Sample(s15_s, float2(v0.x/cb1[7].x, v0.y/cb1[7].y)).xyzw;
+  normalmap.xyzw = t0.Sample(s0_s, v2.xy, int2(1,1)).xyzw;
+  //store normalmap.z for when I find out what it does.
+  normalmap.w = normalmap.z;
+  //unpack xy direction into xyz direction.
+  normalmap.xy = normalmap.xy * 2 - 1;
+  normalmap.z = sqrt(1-saturate(dot(normalmap.xy, normalmap.xy)));
+  diffuse.xyzw = t1.Sample(s0_s, v2.xy, int2(1,1)).xyzw;
+  lightmap.xyzw = t2.Sample(s1_s, v2.xy, int2(1,1)).xyzw;
 
-  // ren1 = ren1 + ren2 * 0.25;
-  // ren1 = clamp(ren1,0,1);
-
+  ren1 = ren1 + ren2 * 0.25;
+  ren1 = clamp(ren1,0,1);
+  
   //pray
   r0 = float4(0,0,0,0);
   r3 = float4(0,0,0,0); r4 = float4(0,0,0,0); r5 = float4(0,0,0,0); r6 = float4(0,0,0,0);
-  r4.xyzw = t1.Sample(s15_s, texco).xyzw;
+  r4.xyzw = t2.Sample(s1_s, v2.xy, int2(1,1)).xyzw;
   r3.xy = float2(0,0);
   r0.x = 0;
   r5.xyzw = -(r4.wwww >= float4(0.800000012,0.400000006,0.200000003,0.600000024));
@@ -213,18 +231,6 @@ void main(
     r2.xyz = diffuse.xyz*0.5;
     r2.w = 0.0;
   }
-  if(ren2.x > 0.0 || ren2.y > 0.0 || ren2.z > 0.0){
-    // Replace Diffuse here with some YUV value
-    r4.xyzw = float4(
-      lerp(diffuse.x, ren2.x, mask.x),
-      lerp(diffuse.y, ren2.y, mask.x),
-      lerp(diffuse.z, ren2.z, mask.x),
-      0.0
-    );
-  }else{
-    r4.xyz = diffuse.xyz*0.5;
-    r4.w = 0.0;
-  }
   //r3.y = ren1.w > 0 ? lerp(0.223606795, ren1.w, (mask.y * intensity.y)) : 0.223606795;
   r3.y = mask.y > 0 ? mask.y * intensity.y : 0.223606795;
   r3.z = mask.z > 0 ? mask.z * intensity.z : 0.223606795;
@@ -233,7 +239,7 @@ void main(
   o0.w = r5.x ? 0.333000 : 0;
   o1.xyz = r2.xyz;
   o1.w = r3.y;
-  o2.xyz = r4.xyz;
+  o2.xyz = r2.xyz;
   o2.w = 1.0;
   o3.x = 0.0;
   o4.x = r3.z;
@@ -242,9 +248,3 @@ void main(
   return;
 }
 #endif
-
-// v2 is probably the object normal
-// v3 is ?
-// v4 is probably the view normal
-// v5
-// v6
