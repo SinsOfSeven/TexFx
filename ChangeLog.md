@@ -156,3 +156,8 @@ Broken Outlines
 - Some transparencies will not work properly as the characters load in.
 - This also affects custom outline colors, will look for a solution. (LOD Shaders)
 - Intel Integrated graphics glow effects are still malfunctioning, will look into it.
+
+## Version 1.056
+### Removed
+- Removed Hull Hack due to inconsistency across the game Vertex Shaders making it impossible to maintain.
+
