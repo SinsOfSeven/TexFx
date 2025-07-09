@@ -166,3 +166,7 @@ Broken Outlines
 - Moved the uv copy in the regex to BEFORE the texture sample to avoid compiler optimizations where it overwrites the UV with the sample result.
 - Added an extra pattern for identifying the UV coordinates.
 
+## Version 1.05701
+### Fixes
+- Fixed remaining UV issues that were missed after the previous fix.
+
