@@ -170,3 +170,6 @@ Broken Outlines
 ### Fixes
 - Fixed remaining UV issues that were missed after the previous fix.
 
+## Version 1.058
+### Fixes
+- Adjusted the censor pattern to work for all shaders again, restored all pervious functionality.
