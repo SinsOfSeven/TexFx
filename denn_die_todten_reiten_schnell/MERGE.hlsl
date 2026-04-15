@@ -1,20 +1,7 @@
 // **** RESPONSIVE UI SHADER ****
 // Contributors: SinsOfSeven
-
-Texture2D<float2> t19 : register(t29);
-Texture2D<float4> t15 : register(t25);
-Texture2D<float4> t14 : register(t24);
-Texture2D<float4> t13 : register(t23);
-Texture2D<float4> t12 : register(t22);
-Texture2D<float4> t11 : register(t21);
-Texture2D<float4> t10 : register(t20);
-Texture2D<float2>  t9 : register(t19);
-Texture2D<float4>  t5 : register(t15);
-Texture2D<float4>  t4 : register(t14);
-Texture2D<float4>  t3 : register(t13);
-Texture2D<float4>  t2 : register(t12);
-Texture2D<float4>  t1 : register(t11);
-Texture2D<float4>  t0 : register(t10);
+// #define VERTEX_SHADER 1
+// #define PIXEL_SHADER 1
 
 Texture1D<float4> IniParams : register(t120);
 
@@ -74,7 +61,20 @@ float lerpOutput(float a, float b, float4 dm)
 }
 
 #ifdef PIXEL_SHADER
-
+Texture2D<float2> t19 : register(t29);
+Texture2D<float4> t15 : register(t25);
+Texture2D<float4> t14 : register(t24);
+Texture2D<float4> t13 : register(t23);
+Texture2D<float4> t12 : register(t22);
+Texture2D<float4> t11 : register(t21);
+Texture2D<float4> t10 : register(t20);
+Texture2D<float2>  t9 : register(t19);
+Texture2D<float4>  t5 : register(t15);
+Texture2D<float4>  t4 : register(t14);
+Texture2D<float4>  t3 : register(t13);
+Texture2D<float4>  t2 : register(t12);
+Texture2D<float4>  t1 : register(t11);
+Texture2D<float4>  t0 : register(t10);
 void main(
 	vs2ps input,
 	out float oD : SV_Depth,
@@ -92,7 +92,7 @@ void main(
 	input.uv.y = 1-input.uv.y;
 	dims = input.uv.xy*dims.xy;
 	float4 depth_mask;
-	depth_mask.w = t15.Load(int3(dims, 0)).x;
+	depth_mask.w = t10.Load(int3(dims, 0)).x;
 	depth_mask.x = t9.Load(int3(dims, 0)).x;
 	depth_mask.y = t19.Load(int3(dims, 0)).x;
 	depth_mask.z = max(depth_mask.x, depth_mask.y);
