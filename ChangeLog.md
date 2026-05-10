@@ -173,3 +173,8 @@ Broken Outlines
 ## Version 1.058
 ### Fixes
 - Adjusted the censor pattern to work for all shaders again, restored all pervious functionality.
+
+
+## Version 1.064
+### Remaster Patch Notes
+- ...
