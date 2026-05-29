@@ -51,7 +51,10 @@ Green   | 1-255 | Shadow - Bright
 Blue    | 1-255 | Bloom
 Alpha   | 1-63  | Variable Color Replace
 
+
 `$\TexFx\glow_intesity` and `$\TexFx\bloom_intesity` may be used to change the intesity of Green and Blue, or `$\TexFx\hue`, `$\TexFx\sat`, `$\TexFx\val` of the Alpha lower segment.
+
+`$\TexFx\alpha` will be treated as the red channel when no texture is set in `ps-t69`.
 
 ```ini
 ; Example:
@@ -63,15 +66,8 @@ ps-t0 = ResourceHeadNormalMap
 ps-t1 = ResourceHeadDiffuse
 ps-t2 = ResourceHeadLightMap
 ps-t69 = ResourceTexFxMap
-run = CommandList\TexFx\T.1
-;   \Transparency.0 (2.9-) Part has no Normal Map
-;   \Transparency.1 (3.0+) Part has a Normal Map
-;
-;   -- Version 1.04, shorthand Aliases are prefered. --
-;   commandlist\texfx\T.0
-;   commandlist\texfx\T.1
-;   CommandList\TexFx\TransparencyNatlan
-;   CommandList\TexFx\TN
+run = CommandList\TexFx\Transparency
+;run = commandlist\texfx\T
 ```
 
 #### TexFx for Components (OutfitCompiler/XXMI Exports)
@@ -88,15 +84,16 @@ if $Hood == 1
     ps-t69 = ResourceTexFxMask
     $\TexFx\_1 = <DRAWINDEX>
     $\TexFx\_2 = <DRAWOFFSET>
-    run = CommandList\TexFx\Component.1
-    ;run = CommandList\TexFx\C
-    ;run = CommandList\TexFx\ComponentNatlan
+    run = CommandList\TexFx\Component
+;   run = commandlist\texfx\C
 endif
 ```
 
 ```ini
 ; Notable TexFx Words and Aliases.
 
+;Used to set transparency in the place of a Texture Mask.
+$\TexFx\alpha
 ; To multiply your Green and Blue Channels
 ; note, the 2nd options are shorthands.
 $\TexFx\bloom_intesity
@@ -112,73 +109,42 @@ $\TexFx\version
 ; Draw Indexed Carriers for Components
 $\TexFx\_1
 $\TexFx\_2
+$\TexFx\_3
 
 ; TexFx CommandLists for Default Transparency.
 run = CommandList\TexFx\T
-run = CommandList\TexFx\T.0
 run = CommandList\TexFx\Transparency
-run = CommandList\TexFx\Transparency.0
-;-slot 0 normal maps
-run = CommandList\TexFx\T.1
-run = CommandList\TexFx\Transparency.1
-; Natlan versions of above.
-run = CommandList\TexFx\TN.0
-run = CommandList\TexFx\TNat.0
-run = CommandList\TexFx\TransparencyNatlan.0
-run = CommandList\TexFx\TN
-run = CommandList\TexFx\TN.1
-run = CommandList\TexFx\TNat
-run = CommandList\TexFx\TNat.1
-run = CommandList\TexFx\TransparencyNatlan
-run = CommandList\TexFx\TransparencyNatlan.1
 
 ; TexFx CommandLists for Default Component based Transparency.
 run = CommandList\TexFx\C
-run = CommandList\TexFx\C.0
 run = CommandList\TexFx\Component
-run = CommandList\TexFx\Component.0
-;-slot 0 normal maps
-run = CommandList\TexFx\C.1
-run = CommandList\TexFx\Component.1
-;-Natlan Characters
-run = CommandList\TexFx\CN
-run = CommandList\TexFx\CN.1
-run = CommandList\TexFx\CNat
-run = CommandList\TexFx\CNat.1
-run = CommandList\TexFx\ComponentNatlan
-run = CommandList\TexFx\ComponentNatlan.1
-; Natlan Parts without Normal Maps, not sure if needed.
-run = CommandList\TexFx\CN.0
-run = CommandList\TexFx\CNat.0
-run = CommandList\TexFx\ComponentNatlan.0
 
-; Disable the built in "Hull Hack" which ignores vertex colors which offsets transparency.
-run = CommandList\TexFx\Shh
-run = CommandList\TexFx\SupHH
-run = CommandList\TexFx\SupressHullHack
-
-; Force Outline for Transparent parts on/off
+; Force Outlines for Transparency On/Off.
 run = CommandList\TexFx\FO.E
 run = CommandList\TexFx\FO.Enable
 run = CommandList\TexFx\ForceOutline.Enable
 run = CommandList\TexFx\FO.D
 run = CommandList\TexFx\FO.Disable
 run = CommandList\TexFx\ForceOutline.Disable
+
+; Force Back Face Transparency On/Off.
+run = CommandListBFT.E
+run = CommandListBFT.Enable
+run = CommandListBackFaceTransparency.Enable
+run = CommandListBFT.D
+run = CommandListBFT.Disable
+run = CommandListBackFaceTransparency.Disable
 ```
+[link](#batch-command-usage)
 
 #### Keybindings
 Rename `DISABLED_Keybindings.ini`, it is disabled by default to preserve your custom keybindings between updates. If you're using XXMI, you will also need to edit the `DISABLED_Includes.ini` but don't remove the `DISABLED` word, just uncomment the the lines for `Keybindings.ini`
 
+XXMI Users may copy it into their Mods folder.
+
 #### Censorship Patch
 TexFx conflicts with Silent's ShaderFixes mod, so it includes it's own version.
 Press `CTRL+F7` To toggle the censorship patch (Remove Transparency Filter)
-
-#### Hull Hack (Vertex Color Fix)
-Hold `F7+Shift`to preview the HullHack Effect (Enabled->Disable while holding).
-If you prefer the old way, you can add **one** of these commands to your mod. (Alliases)
-`run = CommandList\TexFx\SupressHullHack`
-`run = commandlist\texfx\suphh`
-`$\texfx\hull_hack = 0`
 
 ### Troubleshooting
 
@@ -212,8 +178,10 @@ Extensions are add-on type mods that are intended to be used with TexFx Main, bu
 The intent is to allow anyone to make extensions for the main mod. This could include new effect shaders, new pre-made effects, or utilities. As I add features this should be a lot more appealing, but for now I have just added a very early example and the first utility mod.
 
 #### Int Opacity (Deprecated)
+
 > [!TIP]
-> This Extension will be removed in favor of a different tool called [FakeLightmap](https://github.com/SinsOfSeven/SliderImpact/tree/main/FakeLightmap), a Virtual Texture mod which can be used to quickly manipulate texture values in game!
+> This has been replaced with `$\TexFx\alpha`.
+
 The `int_opacity` extension is zipped in `denn_die_todten_reiten_schnell`
 Just unzip and it will enable the following commands. (Requires Main)
 ```ini
@@ -221,4 +189,84 @@ Just unzip and it will enable the following commands. (Requires Main)
 ; 0.X and 1.X follow the same convention as TexFx.
 run = CommandList\int_opacity\0.X
 run = CommandList\int_opacity\1.X
+```
+
+### Batch Command Usage
+TexFx version 1.066 provides endpoints for modders to build their own transparecny stack, which is highly effective for heavy toggle workflows. This is an alternate for Components, if you would need to write many instead of a few.
+```ini
+[TextureOverrideLaylaDress]
+hash = 8ec3c0d8
+match_first_index = 66474
+
+; Run TexFx Layers
+run = CommandListBatchTexFxLaylaDress
+; Run Original Layers
+run = CommandListLaylaDress
+
+[CommandListBatchTexFxLaylaDress]
+; We need to initialize TexFx with Batch.Pre
+run = CommandList\TexFx\Batch.Pre
+; This will set $\TexFx\internal_control when needed
+if $\TexFx\internal_control
+    ; We need to set some flags
+    run = CommandList\TexFx\SetFlags
+    ; run = CommandList\TexFx\SetInstanceValues
+
+    ; CustomShaders have a silly restriction that they have to have
+    ; the Draw Calls inside them.
+    run = CustomShaderLaylaDressBack
+    run = CustomShaderLaylaDressFront
+    ; Alternatively, you we can just use 
+    ; this to get a decent result with none
+    ; of the funny custom shaders.
+    ; run = CommandList\TexFx\Prepare.F
+    ; run = CommandListLaylaDress
+
+    ; Finally we need to Dismantle the TexFx driver
+    ; otherwise your game won't feel so good.
+    run = CommandList\TexFx\Batch.Post
+endif
+
+
+[CustomShaderLaylaDressBack]
+cull = back
+front = Clockwise
+run = CommandList\TexFx\Prepare.B
+run = CommandListLaylaDress
+
+[CustomShaderLaylaDressFront]
+cull = back
+front = CounterClockwise
+run = CommandList\TexFx\Prepare.F
+run = CommandListLaylaDress
+
+; This is basically just the unmoddified contents of the
+; original LaylaDress section, but we added 
+; [CommandListLaylaDress] to line after the hash and match.
+[CommandListLaylaDress]
+ib = ResourceLaylaDressIB
+ps-t0 = ResourceLaylaDressNormalMap
+if $ColourDress == 0
+	ps-t1 = ResourceLaylaDressDiffuse
+	ps-t2 = ResourceLaylaDressLightMap
+endif
+if $ColourDress == 1
+	ps-t1 = ResourceLaylaDressDiffusepink
+	ps-t2 = ResourceLaylaDressLightMappink
+endif
+ps-t69 = ResourceLaylaDressMask
+run = CommandList\global\ORFix\ORFix
+drawindexed = 14973, 0, 0
+if $ring == 1
+	drawindexed = 1092, 14973, 0
+	if $flower == 1
+		drawindexed = 2280, 16065, 0
+	endif
+endif
+if $skirt1 == 1
+	drawindexed = 1707, 18345, 0
+	if $skirt2 == 1
+		drawindexed = 1128, 20052, 0
+	endif
+endif
 ```
