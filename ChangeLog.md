@@ -173,3 +173,26 @@ Broken Outlines
 ## Version 1.058
 ### Fixes
 - Adjusted the censor pattern to work for all shaders again, restored all pervious functionality.
+
+### Note
+- This verison was a major rewrite, and should be done as a fresh install.
+
+## Addition
+- Added custom pass based Transparency effects, which provides flexiblity and portability.
+- Added `$\TexFx\alpha` which can stand-in for a texture as a single value for transparency.
+- Added `$\TexFx\_3` to support the full drawindexed parameters. Will mostly be unused.
+- Added `$\TexFx\back_render`, with a matching debug keybind.
+
+## Removed
+- Removed outline based transparency that relies on modifying the shape of the mesh. This may be readded in the near future, but with improved shading.
+
+### Refactor
+- Simplified all APIs, but will maintian deprecated APIs in `hic_sunt_dracones\LegacyCommands.ini`
+- `\Transpareny` and `\Component` commands now point to the same internal paths.
+
+### Fixes
+- Fixed Uncensor overmatching from previous verions
+- Fixed Blue Outlines issue caused by not capturing the swizzle on custon outlines.
+
+### Known issues
+- Transparenies are rendered near the end of the frame, and can have issues with rendering around other effects, and the UI, I will work to adderss this, and provide options in the future.
